@@ -1,5 +1,7 @@
+import os
+import subprocess
 #from typing import List  # noqa: F401
-from libqtile import bar, layout, widget, qtile
+from libqtile import bar, layout, widget, qtile, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
@@ -59,7 +61,7 @@ SCRIPT_SHUTDOWN_HANDLER          = "/home/santiago/.scripts/shutdown-handler.sh 
 SCRIPT_QUERY_UPDATES_PACMAN      = "pacman -Qu"
 SCRIPT_QUERY_UPDATES_TAUR        = "/home/santiago/.scripts/taur.sh -Qu"
 
-SCRIPT_INSTALL_UPDATES_PACMAN    = "doas pacman -Syu"
+SCRIPT_INSTALL_UPDATES_PACMAN    = "doas pacman --noconfirm -Syu"
 SCRIPT_INSTALL_UPDATES_TAUR      = "doas /home/santiago/.scripts/taur.sh -Syu"
 
 TERMINAL_TITLE_INSTALLING_PACMAN = "Installing Pacman Updates"
@@ -544,7 +546,7 @@ group_box_widget      = widget.GroupBox( font                        = FONT_FAMI
                                        , this_current_screen_border  = COLOR_FOREGROUND
                                        , this_screen_border          = COLOR_BLUE
                                        , other_current_screen_border = COLOR_PURPLE
-                                       , other_screen_border         = COLOR_CYAN
+                                       , other_screen_border         = COLOR_GREY
                                        , background                  = COLOR_BACKGROUND
                                        , foreground                  = COLOR_FOREGROUND )
    
@@ -559,6 +561,11 @@ window_name_widget    = widget.WindowName( font       = FONT_FAMILY_WIDGET_WINDO
                                          , fontsize   = FONT_SIZE_WIDGET_WINDOW_NAME
                                          , background = BACKGROUND_COLOR_WIDGET_WINDOW_NAME
                                          , foreground = COLOR_FOREGROUND )
+
+minimal_window_name_widget = widget.WindowName( font       = FONT_FAMILY_WIDGET_WINDOW_NAME
+                                              , fontsize   = FONT_SIZE_WIDGET_WINDOW_NAME
+                                              , background = BACKGROUND_COLOR_WIDGET_WINDOW_NAME
+                                              , foreground = COLOR_FOREGROUND )
    
 systray_widget        =  widget.Systray( padding    = PADDING_WIDGET_SYSTRAY
                                        , icon_size  = ICON_SIZE_WIDGET_SYSTRAY
@@ -765,6 +772,12 @@ windows_widget        = widget.WindowCount( fmt             = FMT_WIDGET_WINDOWS
                                           , background      = BACKGROUND_COLOR_WIDGET_WINDOWS
                                           , foreground      = COLOR_FOREGROUND )
 
+minimal_windows_widget = widget.WindowCount( fmt             = FMT_WIDGET_WINDOWS
+                                           , show_zero       = False
+                                           , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_WINDOWS)
+                                           , background      = COLOR_LIGHT_GREY
+                                           , foreground      = COLOR_FOREGROUND )
+
 clock_widget          = widget.Clock( fmt              = FMT_WIDGET_CLOCK
                                     , format           = FORMAT_WIDGET_CLOCK 
                                     , update_interval  = UPDATE_INTERVAL_WIDGET_CLOCK
@@ -778,6 +791,20 @@ clock_widget_box      = [ widget.Clock( fmt             = BOX_FMT
                                       , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_CLOCK)
                                       , background      = BACKGROUND_COLOR_WIDGET_CLOCK
                                       , foreground      = COLOR_FOREGROUND ) ]
+
+minimal_clock_widget  = widget.Clock( fmt              = FMT_WIDGET_CLOCK
+                                    , format           = FORMAT_WIDGET_CLOCK 
+                                    , update_interval  = UPDATE_INTERVAL_WIDGET_CLOCK
+                                    , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_CLOCK)
+                                    , background       = COLOR_ORANGE
+                                    , foreground       = COLOR_FOREGROUND )
+
+minimal_clock_widget_box = [ widget.Clock( fmt             = BOX_FMT
+                                         , format          = FORMAT_WIDGET_BOX_01_CLOCK
+                                         , update_interval = UPDATE_INTERVAL_WIDGET_CLOCK
+                                         , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_CLOCK)
+                                         , background      = COLOR_ORANGE
+                                         , foreground      = COLOR_FOREGROUND ) ]
 
 keyboard_widget       = widget.KeyboardLayout( fmt                  = FMT_WIDGET_KEYBOARD
                                              , configured_keyboards = CONFIGURED_KEYBOARDS
@@ -793,6 +820,12 @@ power_widget          = widget.Image( filename        = PATH_BAR_ICONS_FORMAT.fo
                                     , background      = BACKGROUND_COLOR_WIDGET_POWER
                                     , foreground      = COLOR_FOREGROUND )
 
+minimal_power_widget = widget.Image( filename        = PATH_BAR_ICONS_FORMAT.format(ICON_NAME_POWER)
+                                   , margin          = MARGIN_ICON_DEFAULT
+                                   , scale           = SCALE_ICON_DEFAULT
+                                   , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_POWER)
+                                   , background      = COLOR_RED
+                                   , foreground      = COLOR_FOREGROUND )
 # WIFI
 # widget.Wlan( interface            = WIFI_NETWORK_INTERFACE
 #            , format               = "{essid} {quality}/70"
@@ -912,15 +945,56 @@ all_bar_widgets = [ BarWidget( widget_object = python_logo_widget
                              , use_arrow     = True
                              , background    = COLOR_BLACK ) ]
 
+minimal_bar_widgets = [ BarWidget( widget_object = python_logo_widget 
+                                 , callback      = CALLBACK_PYTHON_LOGO ) 
+                             
+                      , BarWidget( widget_object = separator_widget ) 
+                      
+                      , BarWidget( widget_object = group_box_widget ) 
+    
+                      , BarWidget( widget_object = separator_widget ) 
+    
+                      , BarWidget( widget_object = prompt_widget ) 
+    
+                      , BarWidget( widget_object = minimal_window_name_widget ) 
+    
+                      , BarWidget( widget_object = minimal_windows_widget
+                                 , callback      = CALLBACK_WIDGET_WINDOWS
+                                 , icon_name     = ICON_NAME_WINDOWS
+                                 , use_arrow     = True
+                                 , background    = COLOR_LIGHT_GREY ) 
+                                 
+                      , BarWidget( widget_object = minimal_clock_widget
+                                 , widget_box    = minimal_clock_widget_box
+                                 , callback      = CALLBACK_WIDGET_CLOCK
+                                 , icon_name     = ICON_NAME_CLOCK
+                                 , use_arrow     = True
+                                 , background    = COLOR_ORANGE )
+                                   
+                      , BarWidget( widget_object = minimal_power_widget
+                                 , callback      = CALLBACK_WIDGET_POWER
+                                 , use_arrow     = True
+                                 , background    = COLOR_RED ) ]
+
 # /////////////////////////////////////////////////////////////////////////// SCREEN SETTINGS /////////////////////////////////////////////////////////////////////////// #
 
 screen_0_bar = getBar(all_bar_widgets)
+screen_1_bar = getBar(minimal_bar_widgets)
 
-screen_0 = Screen( bottom = bar.Bar( screen_0_bar, 24 ) )
+screen_0     = Screen( bottom = bar.Bar( screen_0_bar, 24 ) )
+screen_1     = Screen( top    = bar.Bar( screen_1_bar, 24 ) )
 
-screens = [ screen_0 ]
+screens      = [ screen_0
+               , screen_1 ]
 
-# //////////////////////////////////////////////////////////////////////////// OTHER SETTINGS //////////////////////////////////////////////////////////////////////////// #
+# //////////////////////////////////////////////////////////////////////////// STARTUP HOOKS //////////////////////////////////////////////////////////////////////////// #
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.call([home])
+
+# /////////////////////////////////////////////////////////////////////////// OTHER SETTINGS /////////////////////////////////////////////////////////////////////////// #
 
 dgroups_key_binder         = None
 dgroups_app_rules          = [] # #type: List
