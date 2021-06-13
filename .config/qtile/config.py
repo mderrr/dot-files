@@ -64,12 +64,19 @@ SCRIPT_QUERY_UPDATES_TAUR        = "/home/santiago/.scripts/taur.sh -Qu"
 SCRIPT_INSTALL_UPDATES_PACMAN    = "doas pacman --noconfirm -Syu"
 SCRIPT_INSTALL_UPDATES_TAUR      = "doas /home/santiago/.scripts/taur.sh -Syu"
 
+SCRIPT_WATCH_CPU                 = "watch -n 1 -p /home/santiago/.scripts/cpu-info.sh"
+SCRIPT_WATCH_SENSORS             = "watch -n 1 -p sensors"
+SCRIPT_WATCH_MEM                 = "watch -n 1 -p /home/santiago/.scripts/mem-info.sh"
+
 TERMINAL_TITLE_INSTALLING_PACMAN = "Installing Pacman Updates"
 TERMINAL_TITLE_INSTALLING_TAUR   = "Installing AUR Updates"
 
 TERMINAL_TITLE_PACMAN            = "Available Pacman Updates"
 TERMINAL_TITLE_TAUR              = "Available AUR Updates"
 
+TERMINAL_TITLE_WATCH_CPU         = "Watching CPU"
+TERMINAL_TITLE_WATCH_SENSORS     = "Watching Sensors"
+TERMINAL_TITLE_WATCH_MEM         = "Watching MEM"
 
 # ================================== GROUPS ================================== #
 GROUP_NAMES = [ "MAIN", "SYS", "DEV", "WWW", "GFX", "6", "7", "8", "DOCS", "TV" ]
@@ -496,6 +503,9 @@ FLOAT_WINDOWS = [ *layout.Floating.default_float_rules
                 # Custom windows
                 , Match( title    = "AUR Updates" )
                 , Match( title    = "Pacman Updates" )
+                , Match( title    = TERMINAL_TITLE_WATCH_SENSORS )
+                , Match( title    = TERMINAL_TITLE_WATCH_CPU )
+                , Match( title    = TERMINAL_TITLE_WATCH_MEM )
                 , Match( wm_class = "pavucontrol" ) ]
 
 FLOATING_LAYOUT_RULES = layout.Floating( float_rules   = FLOAT_WINDOWS
@@ -507,10 +517,10 @@ FLOATING_LAYOUT_RULES = layout.Floating( float_rules   = FLOAT_WINDOWS
 # --------------------------------------------------------------------------- WIDGET CALLBACKS --------------------------------------------------------------------------- #
 
 CALLBACK_PYTHON_LOGO              = launchTerminalCommand(PYTHON_INTERPRETER)
-CALLBACK_WIDGET_CPU               = spawn(COMMAND_NOTIFY_NO_CALLBACK)
-CALLBACK_WIDGET_TEMP              = spawn(COMMAND_NOTIFY_NO_CALLBACK)
+CALLBACK_WIDGET_CPU               = launchTerminalCommand(SCRIPT_WATCH_CPU, TERMINAL_TITLE_WATCH_CPU)
+CALLBACK_WIDGET_TEMP              = launchTerminalCommand(SCRIPT_WATCH_SENSORS, TERMINAL_TITLE_WATCH_SENSORS)
 CALLBACK_WIDGET_DISK              = spawn(COMMAND_OPEN_ROOT_DIRECTORY)
-CALLBACK_WIDGET_MEMORY            = launchTerminalCommand(HTOP_APP)
+CALLBACK_WIDGET_MEMORY            = launchTerminalCommand(SCRIPT_WATCH_MEM, TERMINAL_TITLE_WATCH_MEM)
 CALLBACK_WIDGET_WEATHER           = spawn(COMMAND_LAUNCH_OPEN_WEATHER_FORMAT.format(WEB_BROWSER_APP, OPEN_WEATHER_URL, MEDELLIN_CITY_CODE))
 CALLBACK_WIDGET_NET               = spawn(COMMAND_NOTIFY_NO_CALLBACK)
 CALLBACK_WIDGET_UPDATE_PAC        = launchTerminalCommand(SCRIPT_QUERY_UPDATES_PACMAN, TERMINAL_TITLE_PACMAN, True)
