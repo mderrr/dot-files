@@ -8,31 +8,33 @@ from libqtile.lazy import lazy
 # //////////////////////////////////////////////////////////////////////// VARIABLE DECLARATIONS //////////////////////////////////////////////////////////////////////// #
 
 # ============== COLOR ============== #
-COLOR_BACKGROUND            = "#2e3440"
 
-COLOR_FOREGROUND            = "#eceff4"
-COLOR_FOREGROUND_YELLOW     = "#5f4510"
-COLOR_FOREGROUND_GREEN      = "#303f23"
-COLOR_FOREGROUND_BLUE       = "#1b2634"
-COLOR_FOREGROUND_PURPLE     = "#3a2636"
-COLOR_FOREGROUND_LIGHT_BLUE = "#1f3040"
-COLOR_FOREGROUND_AQUA       = "#253e3d"                   
-COLOR_FOREGROUND_CYAN       = "#1d4049"
 
-COLOR_RED                   = "#bf616a"
-COLOR_ORANGE                = "#d08770"
-COLOR_YELLOW                = "#ebcb8b"
-COLOR_GREEN                 = "#a3be8c"
-COLOR_BLUE                  = "#5e81ac"
-COLOR_PURPLE                = "#b48ead"
-COLOR_LIGHT_BLUE            = "#81a1c1"
-COLOR_CYAN                  = "#88c0d0"
-COLOR_AQUA                  = "#84b5b4"
+COLOR_RED                   = "#e06c75"  # "#e06c75" 
+COLOR_LIGHT_RED             = "#fbeaeb"
+COLOR_ORANGE                = "#d19a66"  # "#d19a66" 
+COLOR_LIGHT_ORANGE          = "#d7a77a"
+COLOR_YELLOW                = "#e5c07b" # "#e5c07b"
+COLOR_LIGHT_YELLOW          = "#faf3e6"
+COLOR_GREEN                 = "#97c278" # "#97c278"
+COLOR_BLUE                  = "#61afef" # "#61afef"
+COLOR_PURPLE                = "#c678dd" # "#c678dd"
+COLOR_LIGHT_BLUE            = "#dc5761" # "#61afef" # "#81a1c1"
+COLOR_CYAN                  = "#dc5761" # "#56b6c2" # "#88c0d0"
+COLOR_AQUA                  = "#56b6c2" # "#2bbac5" # "#84b5b4"
 COLOR_WHITE                 = "#ffffff"
-COLOR_LIGHT_GREY            = "#677490"
-COLOR_GREY                  = "#434c5e"
-COLOR_DARK_GREY             = "#2e3440"
+COLOR_LIGHT_GREY            = "#abb2bf" # "#677490"
+COLOR_GREY                  = "#808a9e" # "#808a9e"282c34
+COLOR_DARK_GREY             = "#5b6477" # "#282c34" # "#2e3440"
+COLOR_LIGHT_BLACK           = "#282c34"
 COLOR_BLACK                 = "#000000"
+
+COLOR_BACKGROUND            = COLOR_LIGHT_BLACK #"#2e3440"
+
+COLOR_FOREGROUND_LIGHT      = COLOR_LIGHT_GREY
+COLOR_FOREGROUND_DARK       = COLOR_LIGHT_BLACK
+
+COLOR_FOREGROUND            = COLOR_FOREGROUND_LIGHT #"#eceff4"
 
 COLOR_ACTIVE_GROUP_BOX      = "#8fbcbb" 
 COLOR_INACTIVE_GROUP_BOX    = "#4c566a" 
@@ -43,6 +45,7 @@ FOREGROUND_COLOR_PROMPT_WIDGET = COLOR_FOREGROUND
 
 # === CHARACTERS === #
 ARROW_GLYPH_TEXT = ""
+ARROW_LEFT_GLYPH_TEXT = ""
 SPACE            = " "
 EMPTY            = ""
 
@@ -177,7 +180,7 @@ TEXT_OPEN_WIDGET_BOX        = " [...]    "
 TEXT_CLOSE_WIDGET_BOX       = " [ X ]    "
 TEXT_WIDGET_BOX_REPLACEMENT = EMPTY
 
-HIGHLIGHT_METHOD_GROUP_BOX  = "line"
+GROUP_BOX_HIGHLIGHT_METHOD  = "line"
 
 BUTTON_LOCATION_WIDGET_BOX = "right"
 
@@ -228,9 +231,75 @@ FORMAT_WIDGET_BOX_01_UPDATE_AUR = "See"
 FORMAT_WIDGET_BOX_02_UPDATE_AUR = "Install"
 FORMAT_WIDGET_BOX_01_CLOCK      = "%a, %d %b"
 
-# ======== DEFAULT STRINGS ======== #
+# ========= DEFAULT STRINGS ========= #
 DEFAULT_STRING_WIDGET_UPDATE_PAC = EMPTY
 DEFAULT_STRING_WIDGET_UPDATE_AUR = EMPTY
+
+# ================= GROUP BOX COLORS ================= #
+GROUP_BOX_FONT_COLOR_ACTIVE   = COLOR_FOREGROUND_LIGHT
+GROUP_BOX_FONT_COLOR_INACTIVE = COLOR_DARK_GREY
+
+GROUP_BOX_BACKGROUND        = "#333842"
+GROUP_BOX_HIGHLIGHT_CURRENT = COLOR_BLUE
+GROUP_BOX_HIGHLIGHT_OTHER   = COLOR_DARK_GREY
+
+GROUP_BOX_BACKGROUND = COLOR_BACKGROUND
+GROUP_BOX_FOREGROUND = COLOR_FOREGROUND_LIGHT
+
+# ================= WIDGET COLORS ================= #
+COLOR_SEPARATOR               = COLOR_FOREGROUND_LIGHT
+
+WIDGET_BACKGROUND_WINDOW_NAME = COLOR_BACKGROUND
+WIDGET_BACKGROUND_TEMP        = COLOR_RED
+WIDGET_BACKGROUND_CPU         = COLOR_ORANGE
+WIDGET_BACKGROUND_DISK        = COLOR_YELLOW
+WIDGET_BACKGROUND_MEMORY      = COLOR_GREEN
+WIDGET_BACKGROUND_WEATHER     = COLOR_BLUE
+WIDGET_BACKGROUND_NET         = COLOR_PURPLE
+WIDGET_BACKGROUND_UPDATE      = COLOR_RED
+WIDGET_BACKGROUND_CLOCK       = COLOR_ORANGE
+WIDGET_BACKGROUND_VOLUME      = COLOR_YELLOW
+WIDGET_BACKGROUND_WINDOWS     = COLOR_GREEN
+WIDGET_BACKGROUND_KEYBOARD    = COLOR_BLUE
+WIDGET_BACKGROUND_POWER       = COLOR_BACKGROUND
+
+WIDGET_FOREGROUND_WINDOW_NAME = COLOR_FOREGROUND
+WIDGET_FOREGROUND_TEMP        = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_CPU         = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_DISK        = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_MEMORY      = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_WEATHER     = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_NET         = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_UPDATE      = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_CLOCK       = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_VOLUME      = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_WINDOWS     = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_KEYBOARD    = COLOR_FOREGROUND_DARK
+WIDGET_FOREGROUND_POWER       = COLOR_FOREGROUND_DARK
+
+WIDGET_ALERT_TEMP = COLOR_LIGHT_RED
+WIDGET_ALERT_DISK = COLOR_LIGHT_YELLOW
+
+LAYOUT_BORDER_COLOR_FOCUSED = COLOR_BLUE
+LAYOUT_BORDER_COLOR         = COLOR_BACKGROUND
+
+# ===== THRESHOLDS ===== #
+THRESHOLD_WIDGET_TEMP = 80
+THRESHOLD_WIDGET_DISK = 200
+
+# ========= UPDATE INTERVALS ========= #
+WIDGET_UPDATE_INTERVAL_DEFAULT      = 1.0
+
+WIDGET_UPDATE_INTERVAL_TEMP         = WIDGET_UPDATE_INTERVAL_DEFAULT
+WIDGET_UPDATE_INTERVAL_CPU          = WIDGET_UPDATE_INTERVAL_DEFAULT
+WIDGET_UPDATE_INTERVAL_DISK         = WIDGET_UPDATE_INTERVAL_DEFAULT
+WIDGET_UPDATE_INTERVAL_MEMORY       = WIDGET_UPDATE_INTERVAL_DEFAULT
+WIDGET_UPDATE_INTERVAL_WEATHER      = 600.0
+WIDGET_UPDATE_INTERVAL_NET          = WIDGET_UPDATE_INTERVAL_DEFAULT
+WIDGET_UPDATE_INTERVAL_UPDATE       = 1800.0
+WIDGET_UPDATE_INTERVAL_VOLUME       = WIDGET_UPDATE_INTERVAL_DEFAULT
+WIDGET_UPDATE_INTERVAL_CLOCK        = WIDGET_UPDATE_INTERVAL_DEFAULT
+WIDGET_UPDATE_INTERVAL_KEYBOARD     = 10.0
 
 # ============ WIDGET FONT SIZES ============ #
 FONT_SIZE_WIDGET_PROMPT      = 14
@@ -238,7 +307,8 @@ FONT_SIZE_WIDGET_WINDOW_NAME = 12
 FONT_SIZE_WIDGET_DEFAULT     = 12
 FONT_SIZE_WIDGET_BOX         = 10
 FONT_SIZE_WIDGET_GROUP_BOX   = 10
-FONT_SIZE_ARROW_SPACER       = 72
+FONT_SIZE_ARROW_SPACER       = 70 # 72
+FONT_SIZE_ARROW_LEFT_SPACER  = 70
 
 # = WIDGET PADDING SIZES = #
 PADDING_SEPARATOR      = 6
@@ -246,13 +316,14 @@ PADDING_WIDGET_PROMPT  = 10
 PADDING_WIDGET_DEFAULT = 3
 PADDING_GROUP_BOX      = 3
 PADDING_WIDGET_SYSTRAY = 5
-PADDING_ARROW_SPACER   = -14
+PADDING_ARROW_SPACER   = -13.5 # -14
+PADDING_ARROW_LEFT_SPACER = -13.5
 
 # ======= ICON SIZE ======= #
 ICON_SIZE_WIDGET_SYSTRAY = 15
 
 # === MARGIN SIZES === #
-MARGIN_LAYOUT_THEME = 12
+LAYOUT_MARGIN_SIZE = 12
 MARGIN_ICON_DEFAULT = 2
 MARGIN_PYTHON_LOGO  = 0
 
@@ -260,64 +331,19 @@ MARGIN_X_GROUP_BOX  = 0
 MARGIN_Y_GROUP_BOX  = 4
 
 # ===== BORDER SIZES ===== #
-BORDER_WIDTH_LAYOUT_THEME = 2
+LAYOUT_BORDER_WIDTH = 2
 BORDER_WIDTH_GROUP_BOX    = 2
 
 # ====== SEPARATOR ====== #
 SIZE_PERCENT_SEPARATOR = 75
 LINE_WIDTH_SEPARATOR   = 2
 
-# ========= BOOLS ========= #
-SCALE_ICON_DEFAULT     = True
-DISABLE_DRAG_GROUP_BOX = True
+# =========== BOOLS =========== #
+SWITCH_WINDOW_WHEN_MOVED = False
+SCALE_ICON_DEFAULT       = True
+DISABLE_DRAG_GROUP_BOX   = True
 
-# ========= THRESHOLD ========= #
-THRESHOLD_WIDGET_TEMP = 65
-THRESHOLD_WIDGET_DISK = 200
-
-# ========= UPDATE INTERVALS ========= #
-UPDATE_INTERVAL_WIDGET_DEFAULT      = 1.0
-
-UPDATE_INTERVAL_WIDGET_CPU          = UPDATE_INTERVAL_WIDGET_DEFAULT
-UPDATE_INTERVAL_WIDGET_TEMP         = UPDATE_INTERVAL_WIDGET_DEFAULT
-UPDATE_INTERVAL_WIDGET_DISK         = UPDATE_INTERVAL_WIDGET_DEFAULT
-UPDATE_INTERVAL_WIDGET_MEMORY       = UPDATE_INTERVAL_WIDGET_DEFAULT
-UPDATE_INTERVAL_WIDGET_WEATHER      = 600.0
-UPDATE_INTERVAL_WIDGET_NET          = UPDATE_INTERVAL_WIDGET_DEFAULT
-UPDATE_INTERVAL_WIDGET_UPDATE_PAC   = 1800.0
-UPDATE_INTERVAL_WIDGET_UPDATE_AUR   = 1800.0
-UPDATE_INTERVAL_WIDGET_VOLUME       = UPDATE_INTERVAL_WIDGET_DEFAULT
-UPDATE_INTERVAL_WIDGET_CLOCK        = UPDATE_INTERVAL_WIDGET_DEFAULT
-UPDATE_INTERVAL_WIDGET_KEYBOARD     = 10.0
-
-# ================= WIDGET COLORS ================= #
-BACKGROUND_COLOR_WIDGET_WINDOW_NAME = COLOR_BACKGROUND
-BACKGROUND_COLOR_WIDGET_CPU         = COLOR_RED
-BACKGROUND_COLOR_WIDGET_TEMP        = COLOR_ORANGE
-BACKGROUND_COLOR_WIDGET_DISK        = COLOR_YELLOW
-BACKGROUND_COLOR_WIDGET_MEMORY      = COLOR_GREEN
-BACKGROUND_COLOR_WIDGET_WEATHER     = COLOR_BLUE
-BACKGROUND_COLOR_WIDGET_NET         = COLOR_PURPLE
-BACKGROUND_COLOR_WIDGET_UPDATE_PAC  = COLOR_LIGHT_BLUE
-BACKGROUND_COLOR_WIDGET_UPDATE_AUR  = COLOR_CYAN
-BACKGROUND_COLOR_WIDGET_VOLUME      = COLOR_AQUA
-BACKGROUND_COLOR_WIDGET_WINDOWS     = COLOR_LIGHT_GREY
-BACKGROUND_COLOR_WIDGET_CLOCK       = COLOR_GREY
-BACKGROUND_COLOR_WIDGET_KEYBOARD    = COLOR_DARK_GREY
-BACKGROUND_COLOR_WIDGET_POWER       = COLOR_BLACK
-
-FOREGROUND_COLOR_WIDGET_DISK        = COLOR_FOREGROUND_YELLOW
-FOREGROUND_COLOR_WIDGET_MEMORY      = COLOR_FOREGROUND_GREEN
-FOREGROUND_COLOR_WIDGET_WEATHER     = COLOR_FOREGROUND_BLUE
-FOREGROUND_COLOR_WIDGET_NET         = COLOR_FOREGROUND_PURPLE
-FOREGROUND_COLOR_WIDGET_UPDATE_PAC  = COLOR_FOREGROUND_LIGHT_BLUE
-FOREGROUND_COLOR_WIDGET_UPDATE_AUR  = COLOR_FOREGROUND_CYAN
-FOREGROUND_COLOR_WIDGET_VOLUME      = COLOR_FOREGROUND_AQUA
-
-ALERT_COLOR_TEMP = COLOR_WHITE
-ALERT_COLOR_DISK = COLOR_WHITE
-
-# ///////////////////////////////////////////////////////////////////////// FUNCTION DECLARATION ///////////////////////////////////////////////////////////////////////// #
+# //////////////////////////////////////////////////////////////////////// FUNCTION DECLARATION //////////////////////////////////////////////////////////////////////// #
 
 class BarWidget:
     def __init__(self, widget_object, widget_box = None, callback = None, icon_name = None, background = None, foreground = None, use_arrow = False):
@@ -340,7 +366,7 @@ def launchTerminalCommand(command, title = None, hold_open = False):
 
     return spawn(modified_command)
 
-def getSeparator(line_width, background_color = COLOR_BACKGROUND, foreground_color = COLOR_GREY):
+def getSeparator(line_width, background_color = COLOR_BACKGROUND, foreground_color = COLOR_SEPARATOR):
     return widget.Sep( linewidth    = line_width
                      , padding      = PADDING_SEPARATOR + line_width
                      , size_percent = SIZE_PERCENT_SEPARATOR
@@ -465,22 +491,22 @@ groups = [ Group(group, GROUP_DEFAULTS) for group in GROUP_NAMES]
 for i, _ in enumerate(groups):
     group_name = str( (i + 1) % 10 ) # Mod 10 to make 10 bind to 0
 
-    keys.extend([ Key( [KEY_MOD],            group_name, lazy.group[GROUP_NAMES[i]].toscreen()                  )    # Switch to group
-                , Key( [KEY_MOD, KEY_SHIFT], group_name, lazy.window.togroup(GROUP_NAMES[i], switch_group=True) ) ]) # Switch to and move focused window to group
+    keys.extend([ Key( [KEY_MOD],            group_name, lazy.group[GROUP_NAMES[i]].toscreen()                  )                          # Switch to group
+                , Key( [KEY_MOD, KEY_SHIFT], group_name, lazy.window.togroup(GROUP_NAMES[i], switch_group = SWITCH_WINDOW_WHEN_MOVED) ) ]) # Move focused window to group
 
 # //////////////////////////////////////////////////////////////////////////////// LAYOUT //////////////////////////////////////////////////////////////////////////////// #
 
-layout_theme = { "border_width":  BORDER_WIDTH_LAYOUT_THEME
-               , "margin":        MARGIN_LAYOUT_THEME
-               , "border_focus":  COLOR_FOREGROUND
-               , "border_normal": COLOR_BACKGROUND }
+layout_theme = { "border_width" : LAYOUT_BORDER_WIDTH
+               , "margin"       : LAYOUT_MARGIN_SIZE
+               , "border_focus" : LAYOUT_BORDER_COLOR_FOCUSED
+               , "border_normal": LAYOUT_BORDER_COLOR }
 
-layouts = [ layout.MonadTall(**layout_theme)
-          , layout.Max(**layout_theme)
-          , layout.Matrix(**layout_theme)
-          , layout.VerticalTile(**layout_theme)
-          , layout.Zoomy(**layout_theme)
-          , layout.MonadWide(**layout_theme) ]
+layouts = [ layout.MonadTall( **layout_theme )
+          , layout.Max( **layout_theme )
+          , layout.Matrix( **layout_theme )
+          , layout.VerticalTile( **layout_theme )
+          , layout.Zoomy( **layout_theme )
+          , layout.MonadWide( **layout_theme ) ]
 
 # Try more layouts by unleashing below layouts.
 # layout.Columns(border_focus_stack='#d75f5f'),
@@ -549,16 +575,16 @@ group_box_widget      = widget.GroupBox( font                        = FONT_FAMI
                                        , padding                     = PADDING_GROUP_BOX
                                        , borderwidth                 = BORDER_WIDTH_GROUP_BOX
                                        , disable_drag                = DISABLE_DRAG_GROUP_BOX
-                                       , highlight_method            = HIGHLIGHT_METHOD_GROUP_BOX
-                                       , highlight_color             = COLOR_HIGHLIGHT_GROUP_BOX
-                                       , active                      = COLOR_FOREGROUND
-                                       , inactive                    = COLOR_INACTIVE_GROUP_BOX
-                                       , this_current_screen_border  = COLOR_FOREGROUND
-                                       , this_screen_border          = COLOR_BLUE
-                                       , other_current_screen_border = COLOR_PURPLE
-                                       , other_screen_border         = COLOR_GREY
-                                       , background                  = COLOR_BACKGROUND
-                                       , foreground                  = COLOR_FOREGROUND )
+                                       , highlight_method            = GROUP_BOX_HIGHLIGHT_METHOD
+                                       , highlight_color             = GROUP_BOX_BACKGROUND
+                                       , active                      = GROUP_BOX_FONT_COLOR_ACTIVE  
+                                       , inactive                    = GROUP_BOX_FONT_COLOR_INACTIVE
+                                       , this_current_screen_border  = GROUP_BOX_HIGHLIGHT_CURRENT
+                                       , this_screen_border          = GROUP_BOX_HIGHLIGHT_OTHER
+                                       , other_current_screen_border = GROUP_BOX_HIGHLIGHT_CURRENT
+                                       , other_screen_border         = GROUP_BOX_HIGHLIGHT_OTHER
+                                       , background                  = GROUP_BOX_BACKGROUND
+                                       , foreground                  = GROUP_BOX_FOREGROUND )
    
 prompt_widget         = widget.Prompt( prompt     = PROMPT_WIDGET_PROMPT
                                      , font       = FONT_FAMILY_WIDGET_PROMPT
@@ -569,13 +595,13 @@ prompt_widget         = widget.Prompt( prompt     = PROMPT_WIDGET_PROMPT
    
 window_name_widget    = widget.WindowName( font       = FONT_FAMILY_WIDGET_WINDOW_NAME
                                          , fontsize   = FONT_SIZE_WIDGET_WINDOW_NAME
-                                         , background = BACKGROUND_COLOR_WIDGET_WINDOW_NAME
-                                         , foreground = COLOR_FOREGROUND )
+                                         , background = WIDGET_BACKGROUND_WINDOW_NAME
+                                         , foreground = WIDGET_FOREGROUND_WINDOW_NAME )
 
 minimal_window_name_widget = widget.WindowName( font       = FONT_FAMILY_WIDGET_WINDOW_NAME
                                               , fontsize   = FONT_SIZE_WIDGET_WINDOW_NAME
-                                              , background = BACKGROUND_COLOR_WIDGET_WINDOW_NAME
-                                              , foreground = COLOR_FOREGROUND )
+                                              , background = WIDGET_BACKGROUND_WINDOW_NAME
+                                              , foreground = WIDGET_FOREGROUND_WINDOW_NAME )
    
 systray_widget        =  widget.Systray( padding    = PADDING_WIDGET_SYSTRAY
                                        , icon_size  = ICON_SIZE_WIDGET_SYSTRAY
@@ -584,258 +610,259 @@ systray_widget        =  widget.Systray( padding    = PADDING_WIDGET_SYSTRAY
    
 cpu_widget            = widget.CPU( fmt             = FMT_WIDGET_CPU 
                                   , format          = FORMAT_WIDGET_CPU
-                                  , update_interval = UPDATE_INTERVAL_WIDGET_CPU
+                                  , update_interval = WIDGET_UPDATE_INTERVAL_CPU
                                   , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_CPU)
-                                  , background      = BACKGROUND_COLOR_WIDGET_CPU
-                                  , foreground      = COLOR_FOREGROUND )
+                                  , background      = WIDGET_BACKGROUND_CPU
+                                  , foreground      = WIDGET_FOREGROUND_CPU )
    
 cpu_widget_box        = [ widget.CPU( fmt              = BOX_FMT
                                     , format           = FORMAT_WIDGET_BOX_01_CPU
-                                    , update_interval  = UPDATE_INTERVAL_WIDGET_CPU
+                                    , update_interval  = WIDGET_UPDATE_INTERVAL_CPU
                                     , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_CPU)
-                                    , background       = BACKGROUND_COLOR_WIDGET_CPU
-                                    , foreground       = COLOR_FOREGROUND ) ]
+                                    , background       = WIDGET_BACKGROUND_CPU
+                                    , foreground       = WIDGET_FOREGROUND_CPU ) ]
    
 temp_widget           = widget.ThermalSensor( fmt              = FMT_WIDGET_TEMP
                                             , threshold        = THRESHOLD_WIDGET_TEMP
-                                            , update_interval  = UPDATE_INTERVAL_WIDGET_TEMP
+                                            , update_interval  = WIDGET_UPDATE_INTERVAL_TEMP
                                             , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_TEMP)
-                                            , background       = BACKGROUND_COLOR_WIDGET_TEMP
-                                            , foreground       = COLOR_FOREGROUND
-                                            , foreground_alert = ALERT_COLOR_TEMP )
+                                            , background       = WIDGET_BACKGROUND_TEMP
+                                            , foreground       = WIDGET_FOREGROUND_TEMP
+                                            , foreground_alert = WIDGET_ALERT_TEMP )
    
 disk_widget           = widget.DF( fmt             = FMT_WIDGET_DISK
                                  , format          = FORMAT_WIDGET_DISK
                                  , warn_space      = THRESHOLD_WIDGET_DISK
-                                 , warn_color      = ALERT_COLOR_DISK
+                                 , warn_color      = WIDGET_ALERT_DISK
                                  , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_DISK)
                                  , visible_on_warn = False
-                                 , background      = BACKGROUND_COLOR_WIDGET_DISK
-                                 , foreground      = FOREGROUND_COLOR_WIDGET_DISK )
+                                 , background      = WIDGET_BACKGROUND_DISK
+                                 , foreground      = WIDGET_FOREGROUND_DISK )
    
 disk_widget_box       = [ widget.DF( fmt              = BOX_FMT
                                    , format           = FORMAT_WIDGET_BOX_01_DISK
                                    , warn_space       = THRESHOLD_WIDGET_DISK
-                                   , warn_color       = ALERT_COLOR_DISK
+                                   , warn_color       = WIDGET_ALERT_DISK
                                    , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_DISK)
                                    , visible_on_warn  = False
-                                   , background       = BACKGROUND_COLOR_WIDGET_DISK
-                                   , foreground       = FOREGROUND_COLOR_WIDGET_DISK )
+                                   , background       = WIDGET_BACKGROUND_DISK
+                                   , foreground       = WIDGET_FOREGROUND_DISK )
    
                         , widget.DF( fmt              = BOX_FMT
                                    , format           = FORMAT_WIDGET_BOX_02_DISK
                                    , warn_space       = THRESHOLD_WIDGET_DISK
-                                   , warn_color       = ALERT_COLOR_DISK
+                                   , warn_color       = WIDGET_ALERT_DISK
                                    , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_DISK)
                                    , visible_on_warn  = False
-                                   , background       = BACKGROUND_COLOR_WIDGET_DISK
-                                   , foreground       = FOREGROUND_COLOR_WIDGET_DISK )
+                                   , background       = WIDGET_BACKGROUND_DISK
+                                   , foreground       = WIDGET_FOREGROUND_DISK )
              
                         , widget.DF( fmt              = BOX_FMT
                                    , format           = FORMAT_WIDGET_BOX_03_DISK
                                    , warn_space       = THRESHOLD_WIDGET_DISK
-                                   , warn_color       = ALERT_COLOR_DISK
+                                   , warn_color       = WIDGET_ALERT_DISK
                                    , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_DISK)
                                    , visible_on_warn  = False
-                                   , background       = BACKGROUND_COLOR_WIDGET_DISK
-                                   , foreground       = FOREGROUND_COLOR_WIDGET_DISK ) ]
+                                   , background       = WIDGET_BACKGROUND_DISK
+                                   , foreground       = WIDGET_FOREGROUND_DISK ) ]
    
 memory_widget         = widget.Memory( fmt              = FMT_WIDGET_MEMORY
                                      , format           = FORMAT_WIDGET_MEMORY
-                                     , update_interval  = UPDATE_INTERVAL_WIDGET_MEMORY
+                                     , update_interval  = WIDGET_UPDATE_INTERVAL_MEMORY
                                      , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_MEMORY)
-                                     , background       = BACKGROUND_COLOR_WIDGET_MEMORY
-                                     , foreground       = FOREGROUND_COLOR_WIDGET_MEMORY )
+                                     , background       = WIDGET_BACKGROUND_MEMORY
+                                     , foreground       = WIDGET_FOREGROUND_MEMORY )
    
 memory_widget_box     = [ widget.Memory( fmt             = BOX_FMT
                                        , format          = FORMAT_WIDGET_BOX_01_MEMORY
-                                       , update_interval = UPDATE_INTERVAL_WIDGET_MEMORY
+                                       , update_interval = WIDGET_UPDATE_INTERVAL_MEMORY
                                        , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_MEMORY)
-                                       , background      = BACKGROUND_COLOR_WIDGET_MEMORY
-                                       , foreground      = FOREGROUND_COLOR_WIDGET_MEMORY )
+                                       , background      = WIDGET_BACKGROUND_MEMORY
+                                       , foreground      = WIDGET_FOREGROUND_MEMORY )
    
                         , widget.Memory( fmt             = BOX_FMT
                                        , format          = FORMAT_WIDGET_BOX_02_MEMORY
-                                       , update_interval = UPDATE_INTERVAL_WIDGET_MEMORY
+                                       , update_interval = WIDGET_UPDATE_INTERVAL_MEMORY
                                        , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_MEMORY)
-                                       , background      = BACKGROUND_COLOR_WIDGET_MEMORY
-                                       , foreground      = FOREGROUND_COLOR_WIDGET_MEMORY )
+                                       , background      = WIDGET_BACKGROUND_MEMORY
+                                       , foreground      = WIDGET_FOREGROUND_MEMORY )
    
                         , widget.Memory( fmt             = BOX_FMT
                                        , format          = FORMAT_WIDGET_BOX_03_MEMORY
-                                       , update_interval = UPDATE_INTERVAL_WIDGET_MEMORY
+                                       , update_interval = WIDGET_UPDATE_INTERVAL_MEMORY
                                        , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_MEMORY)
-                                       , background      = BACKGROUND_COLOR_WIDGET_MEMORY
-                                       , foreground      = FOREGROUND_COLOR_WIDGET_MEMORY )
+                                       , background      = WIDGET_BACKGROUND_MEMORY
+                                       , foreground      = WIDGET_FOREGROUND_MEMORY )
    
                         , widget.Memory( fmt             = BOX_FMT
                                        , format          = FORMAT_WIDGET_BOX_04_MEMORY
-                                       , update_interval = UPDATE_INTERVAL_WIDGET_MEMORY
+                                       , update_interval = WIDGET_UPDATE_INTERVAL_MEMORY
                                        , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_MEMORY)
-                                       , background      = BACKGROUND_COLOR_WIDGET_MEMORY
-                                       , foreground      = FOREGROUND_COLOR_WIDGET_MEMORY ) ]
+                                       , background      = WIDGET_BACKGROUND_MEMORY
+                                       , foreground      = WIDGET_FOREGROUND_MEMORY ) ]
    
 weather_widget        = widget.OpenWeather( fmt              = FMT_WIDGET_WEATHER
                                           , format           = FORMAT_WIDGET_WEATHER
                                           , cityid           = MEDELLIN_CITY_CODE
-                                          , update_interval  = UPDATE_INTERVAL_WIDGET_WEATHER
+                                          , update_interval  = WIDGET_UPDATE_INTERVAL_WEATHER
                                           , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_WEATHER)
-                                          , background       = BACKGROUND_COLOR_WIDGET_WEATHER
-                                          , foreground       = FOREGROUND_COLOR_WIDGET_WEATHER )
+                                          , background       = WIDGET_BACKGROUND_WEATHER
+                                          , foreground       = WIDGET_FOREGROUND_WEATHER )
    
 weather_widget_box    = [ widget.OpenWeather( fmt             = BOX_FMT
                                             , format          = FORMAT_WIDGET_BOX_01_WEATHER
                                             , cityid          = MEDELLIN_CITY_CODE
-                                            , update_interval = UPDATE_INTERVAL_WIDGET_WEATHER
+                                            , update_interval = WIDGET_UPDATE_INTERVAL_WEATHER
                                             , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_WEATHER)
-                                            , background      = BACKGROUND_COLOR_WIDGET_WEATHER
-                                            , foreground      = FOREGROUND_COLOR_WIDGET_WEATHER )
+                                            , background      = WIDGET_BACKGROUND_WEATHER
+                                            , foreground      = WIDGET_FOREGROUND_WEATHER )
         
                         , widget.OpenWeather( fmt             = BOX_FMT
                                             , format          = FORMAT_WIDGET_BOX_02_WEATHER
                                             , cityid          = MEDELLIN_CITY_CODE
-                                            , update_interval = UPDATE_INTERVAL_WIDGET_WEATHER
+                                            , update_interval = WIDGET_UPDATE_INTERVAL_WEATHER
                                             , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_WEATHER)
-                                            , background      = BACKGROUND_COLOR_WIDGET_WEATHER
-                                            , foreground      = FOREGROUND_COLOR_WIDGET_WEATHER )
+                                            , background      = WIDGET_BACKGROUND_WEATHER
+                                            , foreground      = WIDGET_FOREGROUND_WEATHER )
         
                         , widget.OpenWeather( fmt             = BOX_FMT
                                             , format          = FORMAT_WIDGET_BOX_03_WEATHER
                                             , cityid          = MEDELLIN_CITY_CODE
-                                            , update_interval = UPDATE_INTERVAL_WIDGET_WEATHER
+                                            , update_interval = WIDGET_UPDATE_INTERVAL_WEATHER
                                             , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_WEATHER)
-                                            , background      = BACKGROUND_COLOR_WIDGET_WEATHER
-                                            , foreground      = FOREGROUND_COLOR_WIDGET_WEATHER ) ]
+                                            , background      = WIDGET_BACKGROUND_WEATHER
+                                            , foreground      = WIDGET_FOREGROUND_WEATHER ) ]
    
 net_down_widget       = widget.Net( fmt        = FMT_WIDGET_NET_DOWN
                                   , format     = FORMAT_WIDGET_NET_DOWN
                                   , interface  = LAN_NETWORK_INTERFACE
                                   , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_NET)
-                                  , background = BACKGROUND_COLOR_WIDGET_NET
-                                  , foreground = FOREGROUND_COLOR_WIDGET_NET )
+                                  , background = WIDGET_BACKGROUND_NET
+                                  , foreground = WIDGET_FOREGROUND_NET )
    
 net_up_widget         = widget.Net( fmt          = FMT_WIDGET_NET_UP
                                   , format       = FORMAT_WIDGET_NET_UP
                                   , interface    = LAN_NETWORK_INTERFACE
                                   , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_NET)
-                                  , background   = BACKGROUND_COLOR_WIDGET_NET
-                                  , foreground   = FOREGROUND_COLOR_WIDGET_NET )
+                                  , background   = WIDGET_BACKGROUND_NET
+                                  , foreground   = WIDGET_FOREGROUND_NET )
    
 update_pac_widget     = widget.CheckUpdates( fmt                  = FMT_WIDGET_UPDATE_PAC
                                            , display_format       = FORMAT_WIDGET_UPDATE_PAC
                                            , distro               = LINUX_DISTRIBUTION
                                            , no_update_string     = DEFAULT_STRING_WIDGET_UPDATE_PAC
-                                           , colour_have_updates  = FOREGROUND_COLOR_WIDGET_UPDATE_PAC
-                                           , colour_no_updates    = FOREGROUND_COLOR_WIDGET_UPDATE_PAC
-                                           , update_interval      = UPDATE_INTERVAL_WIDGET_UPDATE_PAC
+                                           , colour_have_updates  = WIDGET_FOREGROUND_UPDATE
+                                           , colour_no_updates    = WIDGET_FOREGROUND_UPDATE
+                                           , update_interval      = WIDGET_UPDATE_INTERVAL_UPDATE
                                            , custom_command       = COMMAND_UPDATE_PAC_CHECK
                                            , mouse_callbacks      = setMouseCallbacks(CALLBACK_WIDGET_UPDATE_PAC)
-                                           , background           = BACKGROUND_COLOR_WIDGET_UPDATE_PAC
-                                           , foreground           = FOREGROUND_COLOR_WIDGET_UPDATE_PAC )
+                                           , background           = WIDGET_BACKGROUND_UPDATE
+                                           , foreground           = WIDGET_FOREGROUND_UPDATE )
    
 update_pac_widget_box = [ widget.TextBox( fmt                     = BOX_FMT
                                         , text                    = FORMAT_WIDGET_BOX_01_UPDATE_PAC
                                         , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_UPDATE_PAC)
-                                        , background              = BACKGROUND_COLOR_WIDGET_UPDATE_PAC
-                                        , foreground              = FOREGROUND_COLOR_WIDGET_UPDATE_PAC )
+                                        , background              = WIDGET_BACKGROUND_UPDATE
+                                        , foreground              = WIDGET_FOREGROUND_UPDATE )
    
                         , widget.TextBox( fmt                     = BOX_FMT
                                         , text                    = FORMAT_WIDGET_BOX_02_UPDATE_PAC
                                         , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_BOX_02_UPDATE_PAC)
-                                        , background              = BACKGROUND_COLOR_WIDGET_UPDATE_PAC
-                                        , foreground              = FOREGROUND_COLOR_WIDGET_UPDATE_PAC ) ]
+                                        , background              = WIDGET_BACKGROUND_UPDATE
+                                        , foreground              = WIDGET_FOREGROUND_UPDATE ) ]
    
 update_aur_widget     = widget.CheckUpdates( fmt                  = FMT_WIDGET_UPDATE_AUR
                                            , display_format       = FORMAT_WIDGET_UPDATE_AUR
                                            , distro               = LINUX_DISTRIBUTION
                                            , no_update_string     = DEFAULT_STRING_WIDGET_UPDATE_AUR
-                                           , colour_have_updates  = FOREGROUND_COLOR_WIDGET_UPDATE_AUR
-                                           , colour_no_updates    = FOREGROUND_COLOR_WIDGET_UPDATE_AUR
-                                           , update_interval      = UPDATE_INTERVAL_WIDGET_UPDATE_AUR
+                                           , colour_have_updates  = WIDGET_FOREGROUND_UPDATE
+                                           , colour_no_updates    = WIDGET_FOREGROUND_UPDATE
+                                           , update_interval      = WIDGET_UPDATE_INTERVAL_UPDATE
                                            , custom_command       = COMMAND_UPDATE_AUR_CHECK
                                            , mouse_callbacks      = setMouseCallbacks(CALLBACK_WIDGET_UPDATE_AUR)
-                                           , background           = BACKGROUND_COLOR_WIDGET_UPDATE_AUR
-                                           , foreground           = FOREGROUND_COLOR_WIDGET_UPDATE_AUR )
+                                           , background           = WIDGET_BACKGROUND_UPDATE
+                                           , foreground           = WIDGET_FOREGROUND_UPDATE )
     
 update_aur_widget_box = [ widget.TextBox( fmt                     = BOX_FMT
                                         , text                    = FORMAT_WIDGET_BOX_01_UPDATE_AUR
                                         , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_UPDATE_AUR)
-                                        , background              = BACKGROUND_COLOR_WIDGET_UPDATE_AUR
-                                        , foreground              = FOREGROUND_COLOR_WIDGET_UPDATE_AUR )
+                                        , background              = WIDGET_BACKGROUND_UPDATE
+                                        , foreground              = WIDGET_FOREGROUND_UPDATE )
 
                         , widget.TextBox( fmt                     = BOX_FMT
                                         , text                    = FORMAT_WIDGET_BOX_02_UPDATE_AUR
                                         , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_BOX_02_UPDATE_AUR)
-                                        , background              = BACKGROUND_COLOR_WIDGET_UPDATE_AUR
-                                        , foreground              = FOREGROUND_COLOR_WIDGET_UPDATE_AUR ) ]
+                                        , background              = WIDGET_BACKGROUND_UPDATE
+                                        , foreground              = WIDGET_FOREGROUND_UPDATE ) ]
 
 volume_widget         = widget.Volume( fmt             = FMT_WIDGET_VOLUME
                                      , volume_app      = VOLUME_APP
-                                     , update_interval = UPDATE_INTERVAL_WIDGET_VOLUME
+                                     , update_interval = WIDGET_UPDATE_INTERVAL_VOLUME
                                      , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_VOLUME)
-                                     , background      = BACKGROUND_COLOR_WIDGET_VOLUME
-                                     , foreground      = FOREGROUND_COLOR_WIDGET_VOLUME )
+                                     , background      = WIDGET_BACKGROUND_VOLUME
+                                     , foreground      = WIDGET_FOREGROUND_VOLUME )
 
 windows_widget        = widget.WindowCount( fmt             = FMT_WIDGET_WINDOWS
                                           , show_zero       = False
                                           , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_WINDOWS)
-                                          , background      = BACKGROUND_COLOR_WIDGET_WINDOWS
-                                          , foreground      = COLOR_FOREGROUND )
+                                          , background      = WIDGET_BACKGROUND_WINDOWS
+                                          , foreground      = WIDGET_FOREGROUND_WINDOWS )
 
 minimal_windows_widget = widget.WindowCount( fmt             = FMT_WIDGET_WINDOWS
                                            , show_zero       = False
                                            , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_WINDOWS)
-                                           , background      = COLOR_LIGHT_GREY
-                                           , foreground      = COLOR_FOREGROUND )
+                                           , background      = WIDGET_BACKGROUND_WINDOWS
+                                           , foreground      = WIDGET_FOREGROUND_WINDOWS )
 
 clock_widget          = widget.Clock( fmt              = FMT_WIDGET_CLOCK
                                     , format           = FORMAT_WIDGET_CLOCK 
-                                    , update_interval  = UPDATE_INTERVAL_WIDGET_CLOCK
+                                    , update_interval  = WIDGET_UPDATE_INTERVAL_CLOCK
                                     , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_CLOCK)
-                                    , background       = BACKGROUND_COLOR_WIDGET_CLOCK
-                                    , foreground       = COLOR_FOREGROUND )
+                                    , background       = WIDGET_BACKGROUND_CLOCK
+                                    , foreground       = WIDGET_FOREGROUND_CLOCK )
 
 clock_widget_box      = [ widget.Clock( fmt             = BOX_FMT
                                       , format          = FORMAT_WIDGET_BOX_01_CLOCK
-                                      , update_interval = UPDATE_INTERVAL_WIDGET_CLOCK
+                                      , update_interval = WIDGET_UPDATE_INTERVAL_CLOCK
                                       , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_CLOCK)
-                                      , background      = BACKGROUND_COLOR_WIDGET_CLOCK
-                                      , foreground      = COLOR_FOREGROUND ) ]
+                                      , background      = WIDGET_BACKGROUND_CLOCK
+                                      , foreground      = WIDGET_FOREGROUND_CLOCK ) ]
 
 minimal_clock_widget  = widget.Clock( fmt              = FMT_WIDGET_CLOCK
                                     , format           = FORMAT_WIDGET_CLOCK 
-                                    , update_interval  = UPDATE_INTERVAL_WIDGET_CLOCK
+                                    , update_interval  = WIDGET_UPDATE_INTERVAL_CLOCK
                                     , mouse_callbacks  = setMouseCallbacks(CALLBACK_WIDGET_CLOCK)
-                                    , background       = COLOR_ORANGE
-                                    , foreground       = COLOR_FOREGROUND )
+                                    , background       = WIDGET_BACKGROUND_CLOCK
+                                    , foreground       = WIDGET_FOREGROUND_CLOCK )
 
 minimal_clock_widget_box = [ widget.Clock( fmt             = BOX_FMT
                                          , format          = FORMAT_WIDGET_BOX_01_CLOCK
-                                         , update_interval = UPDATE_INTERVAL_WIDGET_CLOCK
+                                         , update_interval = WIDGET_UPDATE_INTERVAL_CLOCK
                                          , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_CLOCK)
-                                         , background      = COLOR_ORANGE
-                                         , foreground      = COLOR_FOREGROUND ) ]
+                                         , background      = WIDGET_BACKGROUND_CLOCK
+                                         , foreground      = WIDGET_FOREGROUND_CLOCK ) ]
 
 keyboard_widget       = widget.KeyboardLayout( fmt                  = FMT_WIDGET_KEYBOARD
                                              , configured_keyboards = CONFIGURED_KEYBOARDS
-                                             , update_interval      = UPDATE_INTERVAL_WIDGET_KEYBOARD
+                                             , update_interval      = WIDGET_UPDATE_INTERVAL_KEYBOARD
                                              , mouse_callbacks      = setMouseCallbacks(CALLBACK_WIDGET_KEYBOARD)
-                                             , background           = BACKGROUND_COLOR_WIDGET_KEYBOARD
-                                             , foreground           = COLOR_FOREGROUND )
+                                             , background           = WIDGET_BACKGROUND_KEYBOARD
+                                             , foreground           = WIDGET_FOREGROUND_KEYBOARD )
 
 power_widget          = widget.Image( filename        = PATH_BAR_ICONS_FORMAT.format(ICON_NAME_POWER)
                                     , margin          = MARGIN_ICON_DEFAULT
                                     , scale           = SCALE_ICON_DEFAULT
                                     , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_POWER)
-                                    , background      = BACKGROUND_COLOR_WIDGET_POWER
-                                    , foreground      = COLOR_FOREGROUND )
+                                    , background      = WIDGET_BACKGROUND_POWER
+                                    , foreground      = WIDGET_FOREGROUND_POWER )
 
 minimal_power_widget = widget.Image( filename        = PATH_BAR_ICONS_FORMAT.format(ICON_NAME_POWER)
                                    , margin          = MARGIN_ICON_DEFAULT
                                    , scale           = SCALE_ICON_DEFAULT
                                    , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_POWER)
-                                   , background      = COLOR_RED
-                                   , foreground      = COLOR_FOREGROUND )
+                                   , background      = WIDGET_BACKGROUND_POWER
+                                   , foreground      = WIDGET_FOREGROUND_POWER )
+
 # WIFI
 # widget.Wlan( interface            = WIFI_NETWORK_INTERFACE
 #            , format               = "{essid} {quality}/70"
@@ -858,102 +885,107 @@ all_bar_widgets = [ BarWidget( widget_object = python_logo_widget
 
                   , BarWidget( widget_object = systray_widget ) 
 
-                  , BarWidget( widget_object = cpu_widget
-                             , widget_box    = cpu_widget_box
-                             , callback      = CALLBACK_WIDGET_CPU
-                             , icon_name     = ICON_NAME_CPU
-                             , use_arrow     = True
-                             , background    = COLOR_RED ) 
-
                   , BarWidget( widget_object = temp_widget
                              , callback      = CALLBACK_WIDGET_TEMP
                              , icon_name     = ICON_NAME_TEMP
                              , use_arrow     = True
-                             , background    = COLOR_ORANGE ) 
-                             
+                             , background    = WIDGET_BACKGROUND_TEMP
+                             , foreground    = WIDGET_FOREGROUND_TEMP ) 
+
+                  , BarWidget( widget_object = cpu_widget
+                             , widget_box    = cpu_widget_box
+                             , callback      = CALLBACK_WIDGET_CPU
+                             , icon_name     = ICON_NAME_CPU 
+                             , use_arrow     = True
+                             , background    = WIDGET_BACKGROUND_CPU 
+                             , foreground    = WIDGET_FOREGROUND_CPU) 
+
                   , BarWidget( widget_object = disk_widget
                              , widget_box    = disk_widget_box
                              , callback      = CALLBACK_WIDGET_DISK
                              , icon_name     = ICON_NAME_DISK
                              , use_arrow     = True
-                             , background    = COLOR_YELLOW
-                             , foreground    = COLOR_FOREGROUND_YELLOW ) 
+                             , background    = WIDGET_BACKGROUND_DISK
+                             , foreground    = WIDGET_FOREGROUND_DISK ) 
                              
                   , BarWidget( widget_object = memory_widget
                              , widget_box    = memory_widget_box
                              , callback      = CALLBACK_WIDGET_MEMORY
                              , icon_name     = ICON_NAME_MEMORY
                              , use_arrow     = True
-                             , background    = COLOR_GREEN
-                             , foreground    = COLOR_FOREGROUND_GREEN )
+                             , background    = WIDGET_BACKGROUND_MEMORY
+                             , foreground    = WIDGET_FOREGROUND_MEMORY )
 
                   , BarWidget( widget_object = weather_widget
                              , widget_box    = weather_widget_box
                              , callback      = CALLBACK_WIDGET_WEATHER
                              , icon_name     = ICON_NAME_WEATHER
                              , use_arrow     = True
-                             , background    = COLOR_BLUE
-                             , foreground    = COLOR_FOREGROUND_BLUE ) 
+                             , background    = WIDGET_BACKGROUND_WEATHER
+                             , foreground    = WIDGET_FOREGROUND_WEATHER ) 
                              
                   , BarWidget( widget_object = net_down_widget
                              , callback      = CALLBACK_WIDGET_NET
                              , icon_name     = ICON_NAME_NET_DOWN
                              , use_arrow     = True
-                             , background    = COLOR_PURPLE
-                             , foreground    = COLOR_FOREGROUND_PURPLE ) 
+                             , background    = WIDGET_BACKGROUND_NET
+                             , foreground    = WIDGET_FOREGROUND_NET ) 
                              
                   , BarWidget( widget_object = net_up_widget
                              , callback      = CALLBACK_WIDGET_NET
                              , icon_name     = ICON_NAME_NET_UP
-                             , background    = COLOR_PURPLE
-                             , foreground    = COLOR_FOREGROUND_PURPLE ) 
+                             , background    = WIDGET_BACKGROUND_NET
+                             , foreground    = WIDGET_FOREGROUND_NET )
                              
                   , BarWidget( widget_object = update_pac_widget
                              , widget_box    = update_pac_widget_box
                              , callback      = CALLBACK_WIDGET_UPDATE_PAC
                              , icon_name     = ICON_NAME_UPDATE_PAC
-                             , use_arrow     = True
-                             , background    = COLOR_LIGHT_BLUE
-                             , foreground    = COLOR_FOREGROUND_LIGHT_BLUE ) 
-                             
+                              , use_arrow     = True
+                             , background    = WIDGET_BACKGROUND_UPDATE
+                             , foreground    = WIDGET_FOREGROUND_UPDATE ) 
+
                   , BarWidget( widget_object = update_aur_widget
                              , widget_box    = update_aur_widget_box
                              , callback      = CALLBACK_WIDGET_UPDATE_AUR
                              , icon_name     = ICON_NAME_UPDATE_AUR
-                             , use_arrow     = True
-                             , background    = COLOR_CYAN
-                             , foreground    = COLOR_FOREGROUND_CYAN ) 
-                             
-                  , BarWidget( widget_object = volume_widget
-                             , callback      = CALLBACK_WIDGET_VOLUME
-                             , icon_name     = ICON_NAME_VOLUME
-                             , use_arrow     = True
-                             , background    = COLOR_AQUA
-                             , foreground    = COLOR_FOREGROUND_AQUA )
-                             
-                  , BarWidget( widget_object = windows_widget
-                             , callback      = CALLBACK_WIDGET_WINDOWS
-                             , icon_name     = ICON_NAME_WINDOWS
-                             , use_arrow     = True
-                             , background    = COLOR_LIGHT_GREY ) 
-                             
+                             , background    = WIDGET_BACKGROUND_UPDATE
+                             , foreground    = WIDGET_FOREGROUND_UPDATE ) 
+
                   , BarWidget( widget_object = clock_widget
                              , widget_box    = clock_widget_box
                              , callback      = CALLBACK_WIDGET_CLOCK
                              , icon_name     = ICON_NAME_CLOCK
                              , use_arrow     = True
-                             , background    = COLOR_GREY )
+                             , background    = WIDGET_BACKGROUND_CLOCK
+                             , foreground    = WIDGET_FOREGROUND_CLOCK )
+
+                  , BarWidget( widget_object = volume_widget
+                             , callback      = CALLBACK_WIDGET_VOLUME
+                             , icon_name     = ICON_NAME_VOLUME
+                             , use_arrow     = True
+                             , background    = WIDGET_BACKGROUND_VOLUME
+                             , foreground    = WIDGET_FOREGROUND_VOLUME )
+
+                  , BarWidget( widget_object = windows_widget
+                             , callback      = CALLBACK_WIDGET_WINDOWS
+                             , icon_name     = ICON_NAME_WINDOWS 
+                             , use_arrow     = True
+                             , background    = WIDGET_BACKGROUND_WINDOWS
+                             , foreground    = WIDGET_FOREGROUND_WINDOWS ) 
                              
                   , BarWidget( widget_object = keyboard_widget
                              , callback      = CALLBACK_WIDGET_KEYBOARD
                              , icon_name     = ICON_NAME_KEYBOARD
                              , use_arrow     = True
-                             , background    = COLOR_DARK_GREY ) 
-                             
+                             , background    = WIDGET_BACKGROUND_KEYBOARD
+                             , foreground    = WIDGET_FOREGROUND_KEYBOARD )
+   
                   , BarWidget( widget_object = power_widget
                              , callback      = CALLBACK_WIDGET_POWER
                              , use_arrow     = True
-                             , background    = COLOR_BLACK ) ]
+                             , background    = WIDGET_BACKGROUND_POWER
+                             , foreground    = WIDGET_FOREGROUND_POWER ) ]
 
 minimal_bar_widgets = [ BarWidget( widget_object = python_logo_widget 
                                  , callback      = CALLBACK_PYTHON_LOGO ) 
@@ -966,25 +998,42 @@ minimal_bar_widgets = [ BarWidget( widget_object = python_logo_widget
     
                       , BarWidget( widget_object = prompt_widget ) 
     
-                      , BarWidget( widget_object = minimal_window_name_widget ) 
-    
-                      , BarWidget( widget_object = minimal_windows_widget
-                                 , callback      = CALLBACK_WIDGET_WINDOWS
-                                 , icon_name     = ICON_NAME_WINDOWS
-                                 , use_arrow     = True
-                                 , background    = COLOR_LIGHT_GREY ) 
-                                 
+                      , BarWidget( widget_object = minimal_window_name_widget )
+
                       , BarWidget( widget_object = minimal_clock_widget
                                  , widget_box    = minimal_clock_widget_box
                                  , callback      = CALLBACK_WIDGET_CLOCK
                                  , icon_name     = ICON_NAME_CLOCK
                                  , use_arrow     = True
-                                 , background    = COLOR_ORANGE )
+                                 , background    = WIDGET_BACKGROUND_CLOCK
+                                 , foreground    = WIDGET_FOREGROUND_CLOCK ) 
+
+                      , BarWidget( widget_object = volume_widget
+                                 , callback      = CALLBACK_WIDGET_VOLUME
+                                 , icon_name     = ICON_NAME_VOLUME
+                                 , use_arrow     = True
+                                 , background    = WIDGET_BACKGROUND_VOLUME
+                                 , foreground    = WIDGET_FOREGROUND_VOLUME )
+    
+                      , BarWidget( widget_object = minimal_windows_widget
+                                 , callback      = CALLBACK_WIDGET_WINDOWS
+                                 , icon_name     = ICON_NAME_WINDOWS
+                                 , use_arrow     = True
+                                 , background    = WIDGET_BACKGROUND_WINDOWS
+                                 , foreground    = WIDGET_FOREGROUND_WINDOWS ) 
+    
+                      , BarWidget( widget_object = keyboard_widget
+                                 , callback      = CALLBACK_WIDGET_KEYBOARD
+                                 , icon_name     = ICON_NAME_KEYBOARD
+                                 , use_arrow     = True
+                                 , background    = WIDGET_BACKGROUND_KEYBOARD
+                                 , foreground    = WIDGET_FOREGROUND_KEYBOARD )
                                    
                       , BarWidget( widget_object = minimal_power_widget
                                  , callback      = CALLBACK_WIDGET_POWER
                                  , use_arrow     = True
-                                 , background    = COLOR_RED ) ]
+                                 , background    = WIDGET_BACKGROUND_POWER
+                                 , foreground    = WIDGET_FOREGROUND_POWER ) ]
 
 # /////////////////////////////////////////////////////////////////////////// SCREEN SETTINGS /////////////////////////////////////////////////////////////////////////// #
 
