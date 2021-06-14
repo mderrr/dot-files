@@ -7,49 +7,39 @@ from libqtile.lazy import lazy
 
 # //////////////////////////////////////////////////////////////////////// VARIABLE DECLARATIONS //////////////////////////////////////////////////////////////////////// #
 
-# ============== COLOR ============== #
+# ========= COLORS ========= #
+COLOR_RED          = "#e06c75" 
+COLOR_LIGHT_RED    = "#fbeaeb"
+COLOR_ORANGE       = "#d19a66" 
+COLOR_LIGHT_ORANGE = "#d7a77a"
+COLOR_YELLOW       = "#e5c07b"
+COLOR_LIGHT_YELLOW = "#faf3e6"
+COLOR_GREEN        = "#97c278"
+COLOR_BLUE         = "#61afef"
+COLOR_PURPLE       = "#c678dd"
+COLOR_LIGHT_BLUE   = "#dc5761"
+COLOR_CYAN         = "#dc5761"
+COLOR_AQUA         = "#56b6c2"
+COLOR_WHITE        = "#ffffff"
+COLOR_LIGHT_GREY   = "#abb2bf"
+COLOR_GREY         = "#808a9e"
+COLOR_DARK_GREY    = "#5b6477" 
+COLOR_LIGHT_BLACK  = "#282c34"
+COLOR_BLACK        = "#000000"
 
-
-COLOR_RED                   = "#e06c75"  # "#e06c75" 
-COLOR_LIGHT_RED             = "#fbeaeb"
-COLOR_ORANGE                = "#d19a66"  # "#d19a66" 
-COLOR_LIGHT_ORANGE          = "#d7a77a"
-COLOR_YELLOW                = "#e5c07b" # "#e5c07b"
-COLOR_LIGHT_YELLOW          = "#faf3e6"
-COLOR_GREEN                 = "#97c278" # "#97c278"
-COLOR_BLUE                  = "#61afef" # "#61afef"
-COLOR_PURPLE                = "#c678dd" # "#c678dd"
-COLOR_LIGHT_BLUE            = "#dc5761" # "#61afef" # "#81a1c1"
-COLOR_CYAN                  = "#dc5761" # "#56b6c2" # "#88c0d0"
-COLOR_AQUA                  = "#56b6c2" # "#2bbac5" # "#84b5b4"
-COLOR_WHITE                 = "#ffffff"
-COLOR_LIGHT_GREY            = "#abb2bf" # "#677490"
-COLOR_GREY                  = "#808a9e" # "#808a9e"282c34
-COLOR_DARK_GREY             = "#5b6477" # "#282c34" # "#2e3440"
-COLOR_LIGHT_BLACK           = "#282c34"
-COLOR_BLACK                 = "#000000"
-
-COLOR_BACKGROUND            = COLOR_LIGHT_BLACK #"#2e3440"
-
-COLOR_FOREGROUND_LIGHT      = COLOR_LIGHT_GREY
-COLOR_FOREGROUND_DARK       = COLOR_LIGHT_BLACK
-
-COLOR_FOREGROUND            = COLOR_FOREGROUND_LIGHT #"#eceff4"
-
-COLOR_ACTIVE_GROUP_BOX      = "#8fbcbb" 
-COLOR_INACTIVE_GROUP_BOX    = "#4c566a" 
-COLOR_HIGHLIGHT_GROUP_BOX   = "#3b4252"
+COLOR_BACKGROUND      = COLOR_LIGHT_BLACK
+COLOR_FOREGROUND      = COLOR_LIGHT_GREY
+COLOR_FOREGROUND_DARK = COLOR_LIGHT_BLACK
 
 BACKGROUND_COLOR_PROMPT_WIDGET = COLOR_DARK_GREY
 FOREGROUND_COLOR_PROMPT_WIDGET = COLOR_FOREGROUND
 
 # === CHARACTERS === #
 ARROW_GLYPH_TEXT = ""
-ARROW_LEFT_GLYPH_TEXT = ""
 SPACE            = " "
 EMPTY            = ""
 
-# === DEFAULT APPLICATIONS === #
+# ==== DEFAULT APPLICATIONS ==== #
 VOLUME_APP         = "pavucontrol"
 TERMINAL_APP       = "alacritty"
 WEB_BROWSER_APP    = "firefox"
@@ -130,7 +120,7 @@ COMMAND_LAUNCH_OPEN_WEATHER_FORMAT = "{} --new-window {}{}"
 PATH_LOGO_PYTHON      = "~/.config/qtile/icons/python.svg"
 PATH_BAR_ICONS_FORMAT = "~/.config/qtile/icons/bar/{}.svg"
 
-# ==================== TERMINAL FLAGS ==================== #
+# ======= TERMINAL FLAGS ======= #
 TERMINAL_FLAG_HOLD_OPEN = "--hold"
 
 # ====== DEVICE VARIABLES ====== #
@@ -138,10 +128,9 @@ WIFI_NETWORK_INTERFACE = "wlp34s0"
 LAN_NETWORK_INTERFACE  = "eno1"
 LINUX_DISTRIBUTION     = "Arch"
 
-# ====== WEATHER VARIABLES ====== #
+# ============== OPEN WEATHER VARIABLES ============== #
 OPEN_WEATHER_URL    = "https://openweathermap.org/city/"
 MEDELLIN_CITY_CODE  = "3674962"
-
 
 # ===== KEYBOARD LAYOUT ===== #
 KEYBOARD_LAYOUT_LATAM = "LATAM"
@@ -236,7 +225,7 @@ DEFAULT_STRING_WIDGET_UPDATE_PAC = EMPTY
 DEFAULT_STRING_WIDGET_UPDATE_AUR = EMPTY
 
 # ================= GROUP BOX COLORS ================= #
-GROUP_BOX_FONT_COLOR_ACTIVE   = COLOR_FOREGROUND_LIGHT
+GROUP_BOX_FONT_COLOR_ACTIVE   = COLOR_FOREGROUND
 GROUP_BOX_FONT_COLOR_INACTIVE = COLOR_DARK_GREY
 
 GROUP_BOX_BACKGROUND        = "#333842"
@@ -244,10 +233,10 @@ GROUP_BOX_HIGHLIGHT_CURRENT = COLOR_BLUE
 GROUP_BOX_HIGHLIGHT_OTHER   = COLOR_DARK_GREY
 
 GROUP_BOX_BACKGROUND = COLOR_BACKGROUND
-GROUP_BOX_FOREGROUND = COLOR_FOREGROUND_LIGHT
+GROUP_BOX_FOREGROUND = COLOR_FOREGROUND
 
-# ================= WIDGET COLORS ================= #
-COLOR_SEPARATOR               = COLOR_FOREGROUND_LIGHT
+# ============== WIDGET COLORS ============== #
+COLOR_SEPARATOR               = COLOR_FOREGROUND
 
 WIDGET_BACKGROUND_WINDOW_NAME = COLOR_BACKGROUND
 WIDGET_BACKGROUND_TEMP        = COLOR_RED
@@ -301,14 +290,13 @@ WIDGET_UPDATE_INTERVAL_VOLUME       = WIDGET_UPDATE_INTERVAL_DEFAULT
 WIDGET_UPDATE_INTERVAL_CLOCK        = WIDGET_UPDATE_INTERVAL_DEFAULT
 WIDGET_UPDATE_INTERVAL_KEYBOARD     = 10.0
 
-# ============ WIDGET FONT SIZES ============ #
+# ===== WIDGET FONT SIZES ===== #
 FONT_SIZE_WIDGET_PROMPT      = 14
 FONT_SIZE_WIDGET_WINDOW_NAME = 12
 FONT_SIZE_WIDGET_DEFAULT     = 12
 FONT_SIZE_WIDGET_BOX         = 10
 FONT_SIZE_WIDGET_GROUP_BOX   = 10
-FONT_SIZE_ARROW_SPACER       = 70 # 72
-FONT_SIZE_ARROW_LEFT_SPACER  = 70
+FONT_SIZE_ARROW_SPACER       = 70 
 
 # = WIDGET PADDING SIZES = #
 PADDING_SEPARATOR      = 6
@@ -316,8 +304,7 @@ PADDING_WIDGET_PROMPT  = 10
 PADDING_WIDGET_DEFAULT = 3
 PADDING_GROUP_BOX      = 3
 PADDING_WIDGET_SYSTRAY = 5
-PADDING_ARROW_SPACER   = -13.5 # -14
-PADDING_ARROW_LEFT_SPACER = -13.5
+PADDING_ARROW_SPACER   = -13.5 
 
 # ======= ICON SIZE ======= #
 ICON_SIZE_WIDGET_SYSTRAY = 15
@@ -330,9 +317,9 @@ MARGIN_PYTHON_LOGO  = 0
 MARGIN_X_GROUP_BOX  = 0
 MARGIN_Y_GROUP_BOX  = 4
 
-# ===== BORDER SIZES ===== #
-LAYOUT_BORDER_WIDTH = 2
-BORDER_WIDTH_GROUP_BOX    = 2
+# ==== BORDER SIZES ==== #
+GROUP_BOX_BORDER_WIDTH = 2
+LAYOUT_BORDER_WIDTH    = 2
 
 # ====== SEPARATOR ====== #
 SIZE_PERCENT_SEPARATOR = 75
@@ -573,7 +560,7 @@ group_box_widget      = widget.GroupBox( font                        = FONT_FAMI
                                        , margin_x                    = MARGIN_X_GROUP_BOX
                                        , margin_y                    = MARGIN_Y_GROUP_BOX
                                        , padding                     = PADDING_GROUP_BOX
-                                       , borderwidth                 = BORDER_WIDTH_GROUP_BOX
+                                       , borderwidth                 = GROUP_BOX_BORDER_WIDTH
                                        , disable_drag                = DISABLE_DRAG_GROUP_BOX
                                        , highlight_method            = GROUP_BOX_HIGHLIGHT_METHOD
                                        , highlight_color             = GROUP_BOX_BACKGROUND
