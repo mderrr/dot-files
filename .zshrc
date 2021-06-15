@@ -13,6 +13,7 @@ compinit
 
 # Custom aliases
 alias vim='nvim'
+alias nvide='neovide'
 alias taur='/home/santiago/.scripts/taur.sh'
 alias font-install='/home/santiago/.scripts/font-install.sh'
 alias gnome-profile='/home/santiago/.scripts/gnome-profile.sh'

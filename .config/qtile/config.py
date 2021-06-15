@@ -17,9 +17,7 @@ COLOR_LIGHT_YELLOW = "#faf3e6"
 COLOR_GREEN        = "#97c278"
 COLOR_BLUE         = "#61afef"
 COLOR_PURPLE       = "#c678dd"
-COLOR_LIGHT_BLUE   = "#dc5761"
-COLOR_CYAN         = "#dc5761"
-COLOR_AQUA         = "#56b6c2"
+COLOR_CYAN         = "#56b6c2" 
 COLOR_WHITE        = "#ffffff"
 COLOR_LIGHT_GREY   = "#abb2bf"
 COLOR_GREY         = "#808a9e"
@@ -31,22 +29,19 @@ COLOR_BACKGROUND      = COLOR_LIGHT_BLACK
 COLOR_FOREGROUND      = COLOR_LIGHT_GREY
 COLOR_FOREGROUND_DARK = COLOR_LIGHT_BLACK
 
-BACKGROUND_COLOR_PROMPT_WIDGET = COLOR_DARK_GREY
-FOREGROUND_COLOR_PROMPT_WIDGET = COLOR_FOREGROUND
-
 # === CHARACTERS === #
 ARROW_GLYPH_TEXT = ""
 SPACE            = " "
 EMPTY            = ""
 
 # ==== DEFAULT APPLICATIONS ==== #
-VOLUME_APP         = "pavucontrol"
-TERMINAL_APP       = "alacritty"
-WEB_BROWSER_APP    = "firefox"
+APP_PAVUCONTROL    = "pavucontrol"
+APP_TERMINAL       = "alacritty"
+APP_WEB_BROWSER    = "firefox"
 PYTHON_INTERPRETER = "python"
-FILE_MANAGER_APP   = "nemo"
-CODE_EDITOR_APP    = "code"
-HTOP_APP           = "htop"
+APP_FILE_MANAGER   = "nemo"
+APP_CODE_EDITOR    = "code" 
+APP_ROFI           = "rofi -show run"
 
 # =================================== SCRIPTS =================================== #
 SCRIPT_SHUTDOWN_HANDLER          = "/home/santiago/.scripts/shutdown-handler.sh -s"
@@ -111,7 +106,7 @@ COMMAND_UPDATE_PAC_CHECK           = "/home/santiago/.scripts/pacman-updates.sh 
 COMMAND_UPDATE_AUR_CHECK           = "/home/santiago/.scripts/taur.sh -Syqu"
 COMMAND_VOLUME_LOWER               = "amixer sset 'Master' 2%+ unmute"
 COMMAND_VOLUME_RAISE               = "amixer sset 'Master' 2%+ unmute"
-COMMAND_OPEN_ROOT_DIRECTORY        = "{} /".format(FILE_MANAGER_APP)
+COMMAND_OPEN_ROOT_DIRECTORY        = "{} /".format(APP_FILE_MANAGER)
 COMMAND_VOLUME_MUTE                = "amixer -q set Master toggle"
 COMMAND_LAUNCH_IN_TERMINAL_FORMAT  = "{} --title '{}' {} -e {}"
 COMMAND_LAUNCH_OPEN_WEATHER_FORMAT = "{} --new-window {}{}"
@@ -155,14 +150,10 @@ ICON_NAME_KEYBOARD   = "keyboard"
 ICON_NAME_POWER      = "power"
 
 # ============ WIDGET FONT FAMILIES ============ #
-FONT_FAMILY_WIDGET_PROMPT      = "Roboto Mono Bold"
 FONT_FAMILY_WIDGET_WINDOW_NAME = "Roboto Mono Bold"
 FONT_FAMILY_WIDGET_DEFAULT     = "Roboto Mono Bold"
 FONT_FAMILY_WIDGET_BOX         = "Roboto Bold"
 FONT_FAMILY_WIDGET_GROUP_BOX   = "Ubuntu Bold"
-
-# ======== RUN PROMPT ======== #
-PROMPT_WIDGET_PROMPT = "spawn: "
 
 # ====== GROUP BOX STYLING ====== #
 TEXT_OPEN_WIDGET_BOX        = " [...]    "
@@ -272,6 +263,9 @@ WIDGET_ALERT_DISK = COLOR_LIGHT_YELLOW
 LAYOUT_BORDER_COLOR_FOCUSED = COLOR_BLUE
 LAYOUT_BORDER_COLOR         = COLOR_BACKGROUND
 
+# == BAR == #
+BAR_SIZE = 20
+
 # ===== THRESHOLDS ===== #
 THRESHOLD_WIDGET_TEMP = 80
 THRESHOLD_WIDGET_DISK = 200
@@ -291,7 +285,6 @@ WIDGET_UPDATE_INTERVAL_CLOCK        = WIDGET_UPDATE_INTERVAL_DEFAULT
 WIDGET_UPDATE_INTERVAL_KEYBOARD     = 10.0
 
 # ===== WIDGET FONT SIZES ===== #
-FONT_SIZE_WIDGET_PROMPT      = 14
 FONT_SIZE_WIDGET_WINDOW_NAME = 12
 FONT_SIZE_WIDGET_DEFAULT     = 12
 FONT_SIZE_WIDGET_BOX         = 10
@@ -299,8 +292,7 @@ FONT_SIZE_WIDGET_GROUP_BOX   = 10
 FONT_SIZE_ARROW_SPACER       = 70 
 
 # = WIDGET PADDING SIZES = #
-PADDING_SEPARATOR      = 6
-PADDING_WIDGET_PROMPT  = 10
+PADDING_SEPARATOR      = 6 
 PADDING_WIDGET_DEFAULT = 3
 PADDING_GROUP_BOX      = 3
 PADDING_WIDGET_SYSTRAY = 5
@@ -346,10 +338,10 @@ def spawn(command):
     return  lambda: qtile.cmd_spawn(command)
 
 def launchTerminalCommand(command, title = None, hold_open = False):
-    title = title if title is not None else TERMINAL_APP
+    title = title if title is not None else APP_TERMINAL
     hold_open = TERMINAL_FLAG_HOLD_OPEN if hold_open else EMPTY
 
-    modified_command = COMMAND_LAUNCH_IN_TERMINAL_FORMAT.format(TERMINAL_APP, title, hold_open, command)
+    modified_command = COMMAND_LAUNCH_IN_TERMINAL_FORMAT.format(APP_TERMINAL, title, hold_open, command)
 
     return spawn(modified_command)
 
@@ -447,15 +439,15 @@ keys = [ Key( [KEY_MOD],            KEY_H,                lazy.layout.up() )
        , Key( [KEY_MOD],            KEY_TAB,              lazy.next_layout() )
                
        # My bindings               
-       , Key( [KEY_MOD],            KEY_RETURN,           lazy.spawn(TERMINAL_APP) )
-       , Key( [KEY_MOD],            KEY_F,                lazy.spawn(FILE_MANAGER_APP) )
+       , Key( [KEY_MOD],            KEY_RETURN,           lazy.spawn(APP_TERMINAL) )
+       , Key( [KEY_MOD],            KEY_F,                lazy.spawn(APP_FILE_MANAGER) )
        , Key( [KEY_MOD, KEY_SHIFT], KEY_F,                lazy.window.toggle_fullscreen() )
-       , Key( [KEY_MOD],            KEY_B,                lazy.spawn(WEB_BROWSER_APP) )
-       , Key( [KEY_MOD],            KEY_C,                lazy.spawn(CODE_EDITOR_APP) )
-       , Key( [KEY_MOD],            KEY_V,                lazy.spawn(VOLUME_APP) )
+       , Key( [KEY_MOD],            KEY_B,                lazy.spawn(APP_WEB_BROWSER) )
+       , Key( [KEY_MOD],            KEY_C,                lazy.spawn(APP_CODE_EDITOR) )
+       , Key( [KEY_MOD],            KEY_V,                lazy.spawn(APP_PAVUCONTROL) )
        , Key( [KEY_MOD, KEY_CTRL],  KEY_Q,                lazy.shutdown() )
        , Key( [KEY_MOD, KEY_SHIFT], KEY_Q,                lazy.window.kill() )
-       , Key( [KEY_MOD],            KEY_R,                lazy.spawncmd() )
+       , Key( [KEY_MOD],            KEY_R,                lazy.spawn(APP_ROFI) ) #lazy.spawncmd()
        , Key( [KEY_MOD, KEY_SHIFT], KEY_R,                lazy.restart() )
        , Key( [KEY_MOD],            KEY_T,                lazy.window.toggle_floating() )
        
@@ -534,13 +526,13 @@ CALLBACK_WIDGET_CPU               = launchTerminalCommand(SCRIPT_WATCH_CPU, TERM
 CALLBACK_WIDGET_TEMP              = launchTerminalCommand(SCRIPT_WATCH_SENSORS, TERMINAL_TITLE_WATCH_SENSORS)
 CALLBACK_WIDGET_DISK              = spawn(COMMAND_OPEN_ROOT_DIRECTORY)
 CALLBACK_WIDGET_MEMORY            = launchTerminalCommand(SCRIPT_WATCH_MEM, TERMINAL_TITLE_WATCH_MEM)
-CALLBACK_WIDGET_WEATHER           = spawn(COMMAND_LAUNCH_OPEN_WEATHER_FORMAT.format(WEB_BROWSER_APP, OPEN_WEATHER_URL, MEDELLIN_CITY_CODE))
+CALLBACK_WIDGET_WEATHER           = spawn(COMMAND_LAUNCH_OPEN_WEATHER_FORMAT.format(APP_WEB_BROWSER, OPEN_WEATHER_URL, MEDELLIN_CITY_CODE))
 CALLBACK_WIDGET_NET               = spawn(COMMAND_NOTIFY_NO_CALLBACK)
 CALLBACK_WIDGET_UPDATE_PAC        = launchTerminalCommand(SCRIPT_QUERY_UPDATES_PACMAN, TERMINAL_TITLE_PACMAN, True)
 CALLBACK_WIDGET_BOX_02_UPDATE_PAC = launchTerminalCommand(SCRIPT_INSTALL_UPDATES_PACMAN, TERMINAL_TITLE_INSTALLING_PACMAN)
 CALLBACK_WIDGET_UPDATE_AUR        = launchTerminalCommand(SCRIPT_QUERY_UPDATES_TAUR, TERMINAL_TITLE_TAUR, True)
 CALLBACK_WIDGET_BOX_02_UPDATE_AUR = launchTerminalCommand(SCRIPT_INSTALL_UPDATES_TAUR, TERMINAL_TITLE_INSTALLING_TAUR)
-CALLBACK_WIDGET_VOLUME            = spawn(VOLUME_APP)
+CALLBACK_WIDGET_VOLUME            = spawn(APP_PAVUCONTROL)
 CALLBACK_WIDGET_WINDOWS           = spawn(COMMAND_NOTIFY_NO_CALLBACK)
 CALLBACK_WIDGET_CLOCK             = spawn(COMMAND_NOTIFY_NO_CALLBACK)
 CALLBACK_WIDGET_KEYBOARD          = spawn(COMMAND_NOTIFY_NO_CALLBACK)
@@ -572,13 +564,6 @@ group_box_widget      = widget.GroupBox( font                        = FONT_FAMI
                                        , other_screen_border         = GROUP_BOX_HIGHLIGHT_OTHER
                                        , background                  = GROUP_BOX_BACKGROUND
                                        , foreground                  = GROUP_BOX_FOREGROUND )
-   
-prompt_widget         = widget.Prompt( prompt     = PROMPT_WIDGET_PROMPT
-                                     , font       = FONT_FAMILY_WIDGET_PROMPT
-                                     , fontsize   = FONT_SIZE_WIDGET_PROMPT
-                                     , padding    = PADDING_WIDGET_PROMPT
-                                     , background = BACKGROUND_COLOR_PROMPT_WIDGET
-                                     , foreground = FOREGROUND_COLOR_PROMPT_WIDGET )
    
 window_name_widget    = widget.WindowName( font       = FONT_FAMILY_WIDGET_WINDOW_NAME
                                          , fontsize   = FONT_SIZE_WIDGET_WINDOW_NAME
@@ -783,7 +768,7 @@ update_aur_widget_box = [ widget.TextBox( fmt                     = BOX_FMT
                                         , foreground              = WIDGET_FOREGROUND_UPDATE ) ]
 
 volume_widget         = widget.Volume( fmt             = FMT_WIDGET_VOLUME
-                                     , volume_app      = VOLUME_APP
+                                     , APP_PAVUCONTROL      = APP_PAVUCONTROL
                                      , update_interval = WIDGET_UPDATE_INTERVAL_VOLUME
                                      , mouse_callbacks = setMouseCallbacks(CALLBACK_WIDGET_VOLUME)
                                      , background      = WIDGET_BACKGROUND_VOLUME
@@ -864,9 +849,7 @@ all_bar_widgets = [ BarWidget( widget_object = python_logo_widget
                   
                   , BarWidget( widget_object = group_box_widget ) 
 
-                  , BarWidget( widget_object = separator_widget ) 
-
-                  , BarWidget( widget_object = prompt_widget ) 
+                  , BarWidget( widget_object = separator_widget )
 
                   , BarWidget( widget_object = window_name_widget ) 
 
@@ -981,10 +964,8 @@ minimal_bar_widgets = [ BarWidget( widget_object = python_logo_widget
                       
                       , BarWidget( widget_object = group_box_widget ) 
     
-                      , BarWidget( widget_object = separator_widget ) 
-    
-                      , BarWidget( widget_object = prompt_widget ) 
-    
+                      , BarWidget( widget_object = separator_widget )
+
                       , BarWidget( widget_object = minimal_window_name_widget )
 
                       , BarWidget( widget_object = minimal_clock_widget
@@ -1027,8 +1008,8 @@ minimal_bar_widgets = [ BarWidget( widget_object = python_logo_widget
 screen_0_bar = getBar(all_bar_widgets)
 screen_1_bar = getBar(minimal_bar_widgets)
 
-screen_0     = Screen( bottom = bar.Bar( screen_0_bar, 24 ) )
-screen_1     = Screen( top    = bar.Bar( screen_1_bar, 24 ) )
+screen_0     = Screen( bottom = bar.Bar( screen_0_bar, BAR_SIZE ) )
+screen_1     = Screen( top    = bar.Bar( screen_1_bar, BAR_SIZE ) )
 
 screens      = [ screen_0
                , screen_1 ]
