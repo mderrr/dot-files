@@ -25,4 +25,6 @@ alias export-configs='/home/santiago/.scripts/export-configs.sh'
 # Custom PS1
 export PS1="%B%F{red}[%n:%f%F{yellow}@%m%f %F{green}%~%f%F{red}]$ %f"
 
+eval "$(starship init zsh)"
+
 neofetch
