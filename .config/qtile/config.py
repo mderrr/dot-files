@@ -46,8 +46,8 @@ APP_ROFI           = "rofi -show run"
 # =================================== SCRIPTS =================================== #
 SCRIPT_SHUTDOWN_HANDLER          = "/home/santiago/.scripts/shutdown-handler.sh -s"
 
-SCRIPT_QUERY_UPDATES_PACMAN      = "pacman -Qu"
-SCRIPT_QUERY_UPDATES_TAUR        = "/home/santiago/.scripts/taur.sh -Qu"
+SCRIPT_QUERY_UPDATES_PACMAN      = "/home/santiago/.scripts/pacman-updates.sh -Mu"
+SCRIPT_QUERY_UPDATES_TAUR        = "/home/santiago/.scripts/taur.sh -Mu"
 
 SCRIPT_INSTALL_UPDATES_PACMAN    = "doas pacman --noconfirm -Syu"
 SCRIPT_INSTALL_UPDATES_TAUR      = "doas /home/santiago/.scripts/taur.sh -Syu"
@@ -205,15 +205,11 @@ FORMAT_WIDGET_BOX_04_MEMORY     = "{SwapTotal}MiB of swap"
 FORMAT_WIDGET_BOX_01_WEATHER    = "{weather_details}"
 FORMAT_WIDGET_BOX_02_WEATHER    = "{humidity}% humidity"
 FORMAT_WIDGET_BOX_03_WEATHER    = "{wind_speed}{units_wind_speed} winds"
-FORMAT_WIDGET_BOX_01_UPDATE_PAC = "See"
-FORMAT_WIDGET_BOX_02_UPDATE_PAC = "Install"
-FORMAT_WIDGET_BOX_01_UPDATE_AUR = "See"
-FORMAT_WIDGET_BOX_02_UPDATE_AUR = "Install"
 FORMAT_WIDGET_BOX_01_CLOCK      = "%a, %d %b"
 
 # ========= DEFAULT STRINGS ========= #
-DEFAULT_STRING_WIDGET_UPDATE_PAC = EMPTY
-DEFAULT_STRING_WIDGET_UPDATE_AUR = EMPTY
+DEFAULT_STRING_WIDGET_UPDATE_PAC = "0" # EMPTY
+DEFAULT_STRING_WIDGET_UPDATE_AUR = "0" # EMPTY
 
 # ================= GROUP BOX COLORS ================= #
 GROUP_BOX_FONT_COLOR_ACTIVE   = COLOR_FOREGROUND
@@ -528,10 +524,8 @@ CALLBACK_WIDGET_DISK              = spawn(COMMAND_OPEN_ROOT_DIRECTORY)
 CALLBACK_WIDGET_MEMORY            = launchTerminalCommand(SCRIPT_WATCH_MEM, TERMINAL_TITLE_WATCH_MEM)
 CALLBACK_WIDGET_WEATHER           = spawn(COMMAND_LAUNCH_OPEN_WEATHER_FORMAT.format(APP_WEB_BROWSER, OPEN_WEATHER_URL, MEDELLIN_CITY_CODE))
 CALLBACK_WIDGET_NET               = spawn(COMMAND_NOTIFY_NO_CALLBACK)
-CALLBACK_WIDGET_UPDATE_PAC        = launchTerminalCommand(SCRIPT_QUERY_UPDATES_PACMAN, TERMINAL_TITLE_PACMAN, True)
-CALLBACK_WIDGET_BOX_02_UPDATE_PAC = launchTerminalCommand(SCRIPT_INSTALL_UPDATES_PACMAN, TERMINAL_TITLE_INSTALLING_PACMAN)
-CALLBACK_WIDGET_UPDATE_AUR        = launchTerminalCommand(SCRIPT_QUERY_UPDATES_TAUR, TERMINAL_TITLE_TAUR, True)
-CALLBACK_WIDGET_BOX_02_UPDATE_AUR = launchTerminalCommand(SCRIPT_INSTALL_UPDATES_TAUR, TERMINAL_TITLE_INSTALLING_TAUR)
+CALLBACK_WIDGET_UPDATE_PAC        = launchTerminalCommand(SCRIPT_QUERY_UPDATES_PACMAN, TERMINAL_TITLE_PACMAN, False)
+CALLBACK_WIDGET_UPDATE_AUR        = launchTerminalCommand(SCRIPT_QUERY_UPDATES_TAUR, TERMINAL_TITLE_TAUR, False)
 CALLBACK_WIDGET_VOLUME            = spawn(APP_PAVUCONTROL)
 CALLBACK_WIDGET_WINDOWS           = spawn(COMMAND_NOTIFY_NO_CALLBACK)
 CALLBACK_WIDGET_CLOCK             = spawn(COMMAND_NOTIFY_NO_CALLBACK)
@@ -731,18 +725,6 @@ update_pac_widget     = widget.CheckUpdates( fmt                  = FMT_WIDGET_U
                                            , background           = WIDGET_BACKGROUND_UPDATE
                                            , foreground           = WIDGET_FOREGROUND_UPDATE )
    
-update_pac_widget_box = [ widget.TextBox( fmt                     = BOX_FMT
-                                        , text                    = FORMAT_WIDGET_BOX_01_UPDATE_PAC
-                                        , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_UPDATE_PAC)
-                                        , background              = WIDGET_BACKGROUND_UPDATE
-                                        , foreground              = WIDGET_FOREGROUND_UPDATE )
-   
-                        , widget.TextBox( fmt                     = BOX_FMT
-                                        , text                    = FORMAT_WIDGET_BOX_02_UPDATE_PAC
-                                        , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_BOX_02_UPDATE_PAC)
-                                        , background              = WIDGET_BACKGROUND_UPDATE
-                                        , foreground              = WIDGET_FOREGROUND_UPDATE ) ]
-   
 update_aur_widget     = widget.CheckUpdates( fmt                  = FMT_WIDGET_UPDATE_AUR
                                            , display_format       = FORMAT_WIDGET_UPDATE_AUR
                                            , distro               = LINUX_DISTRIBUTION
@@ -754,18 +736,6 @@ update_aur_widget     = widget.CheckUpdates( fmt                  = FMT_WIDGET_U
                                            , mouse_callbacks      = setMouseCallbacks(CALLBACK_WIDGET_UPDATE_AUR)
                                            , background           = WIDGET_BACKGROUND_UPDATE
                                            , foreground           = WIDGET_FOREGROUND_UPDATE )
-    
-update_aur_widget_box = [ widget.TextBox( fmt                     = BOX_FMT
-                                        , text                    = FORMAT_WIDGET_BOX_01_UPDATE_AUR
-                                        , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_UPDATE_AUR)
-                                        , background              = WIDGET_BACKGROUND_UPDATE
-                                        , foreground              = WIDGET_FOREGROUND_UPDATE )
-
-                        , widget.TextBox( fmt                     = BOX_FMT
-                                        , text                    = FORMAT_WIDGET_BOX_02_UPDATE_AUR
-                                        , mouse_callbacks         = setMouseCallbacks(CALLBACK_WIDGET_BOX_02_UPDATE_AUR)
-                                        , background              = WIDGET_BACKGROUND_UPDATE
-                                        , foreground              = WIDGET_FOREGROUND_UPDATE ) ]
 
 volume_widget         = widget.Volume( fmt             = FMT_WIDGET_VOLUME
                                      , APP_PAVUCONTROL      = APP_PAVUCONTROL
@@ -908,15 +878,13 @@ all_bar_widgets = [ BarWidget( widget_object = python_logo_widget
                              , foreground    = WIDGET_FOREGROUND_NET )
                              
                   , BarWidget( widget_object = update_pac_widget
-                             , widget_box    = update_pac_widget_box
                              , callback      = CALLBACK_WIDGET_UPDATE_PAC
                              , icon_name     = ICON_NAME_UPDATE_PAC
-                              , use_arrow     = True
+                             , use_arrow     = True
                              , background    = WIDGET_BACKGROUND_UPDATE
                              , foreground    = WIDGET_FOREGROUND_UPDATE ) 
 
                   , BarWidget( widget_object = update_aur_widget
-                             , widget_box    = update_aur_widget_box
                              , callback      = CALLBACK_WIDGET_UPDATE_AUR
                              , icon_name     = ICON_NAME_UPDATE_AUR
                              , background    = WIDGET_BACKGROUND_UPDATE
