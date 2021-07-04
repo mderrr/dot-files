@@ -270,7 +270,7 @@ colors:
     blue:    '#78bbf1'
     magenta: '#cf8ce2'
     cyan:    '#69bec9'
-    white:   '#b9bfca'
+    white:   '#ffffff'
 
   # Dim colors
   #

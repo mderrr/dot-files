@@ -14,7 +14,6 @@ compinit
 # Custom aliases
 alias vim='nvim'
 alias nvide='neovide'
-alias taur='/home/santiago/.scripts/taur.sh'
 alias font-install='/home/santiago/.scripts/font-install.sh'
 alias gnome-profile='/home/santiago/.scripts/gnome-profile.sh'
 alias dentry-gen='/home/santiago/.scripts/dentry-gen.sh'
@@ -24,7 +23,7 @@ alias export-configs='/home/santiago/.scripts/export-configs.sh'
 
 # Custom PS1
 export PS1="%B%F{red}[%n:%f%F{yellow}@%m%f %F{green}%~%f%F{red}]$ %f"
-
 eval "$(starship init zsh)"
 
-neofetch
+# neofetch
+colorscript -r
