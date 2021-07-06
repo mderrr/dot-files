@@ -52,9 +52,38 @@ TERMINAL_TITLE_WATCH_MEM     = "Watching MEM"
 TERMINAL_TITLE_PACMAN        = "Available Pacman Updates"
 TERMINAL_TITLE_AUR           = "Available AUR Updates"
 
+# ============= LAYOUT ============= #
+LAYOUT_NAME_VERTICAL  = "verticaltile"
+LAYOUT_NAME_MONADTALL = "monadtall"
+LAYOUT_NAME_MAX       = "max"
+
+LAYOUT_BORDER_COLOR         = COLOR_BACKGROUND
+LAYOUT_BORDER_COLOR_FOCUSED = COLOR_CYAN
+
+# =================== CLIENT TITLES =================== #
+CLIENT_TITLE_GIMP      = "GNU Image Manipulation Program"
+CLIENT_TITLE_CODE      = "Visual Studio Code"
+CLIENT_TITLE_FIREFOX   = "Mozilla Firefox"
+CLIENT_TITLE_ALACRITTY = "Alacritty"
+
 # =================================== GROUPS =================================== #
-GROUP_NAMES = [ "MAIN", "SYS", "DEV", "WWW", "GFX", "6", "7", "8", "DOCS", "TV" ]
-GROUP_DEFAULTS = { "layout": "monadtall" }
+GROUP_NAMES = [ "MAIN", "SYS", "DEV", "WEB", "GFX", "6", "7", "8", "DOCS", "TV" ]
+
+GROUP_LAYOUTS = { GROUP_NAMES[0]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[1]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[2]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[3]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[4]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[5]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[6]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[7]: LAYOUT_NAME_MONADTALL
+                , GROUP_NAMES[8]: LAYOUT_NAME_VERTICAL
+                , GROUP_NAMES[9]: LAYOUT_NAME_MAX } 
+
+GROUP_MATCHES = { GROUP_NAMES[1]: [CLIENT_TITLE_ALACRITTY]
+                , GROUP_NAMES[2]: [CLIENT_TITLE_CODE]
+                , GROUP_NAMES[3]: [CLIENT_TITLE_FIREFOX]
+                , GROUP_NAMES[4]: [CLIENT_TITLE_GIMP] }
 
 # ================== KEYS ================== #
 KEY_XF86_AUDIO_LOWER = "XF86AudioLowerVolume"
@@ -130,7 +159,7 @@ ICON_NAME_UPDATE    = "update"
 ICON_NAME_NET       = "net"
 ICON_NAME_VOLUME    = "volume"
 ICON_NAME_WINDOWS   = "windows"
-ICON_NAME_CLOCK     = "clock"
+ICON_NAME_CLOCK     = "date"
 ICON_NAME_KEYBOARD  = "keyboard"
 ICON_NAME_POWER     = "power"
 
@@ -173,9 +202,9 @@ DEFAULT_STRING_WIDGET_UPDATE_AUR = "0" #CHAR_EMPTY
 
 # ============= GROUP BOX STYLING ============= #
 GROUP_BOX_FONT_COLOR_ACTIVE   = COLOR_FOREGROUND
-GROUP_BOX_FONT_COLOR_INACTIVE = COLOR_DARK_GREY
-GROUP_BOX_HIGHLIGHT_CURRENT   = COLOR_BLUE
-GROUP_BOX_HIGHLIGHT_OTHER     = COLOR_DARK_GREY
+GROUP_BOX_FONT_COLOR_INACTIVE = COLOR_LIGHT_BLACK
+GROUP_BOX_HIGHLIGHT_CURRENT   = COLOR_CYAN
+GROUP_BOX_HIGHLIGHT_OTHER     = COLOR_LIGHT_BLACK
 GROUP_BOX_HIGHLIGHT_METHOD    = "line"
 GROUP_BOX_COLOR_BACKGROUND    = COLOR_BACKGROUND
 GROUP_BOX_COLOR_FOREGROUND    = COLOR_FOREGROUND
@@ -214,9 +243,6 @@ WIDGET_FOREGROUND_POWER       = COLOR_RED
 
 WIDGET_ALERT_TEMP             = COLOR_LIGHT_RED
 WIDGET_ALERT_DISK             = COLOR_LIGHT_YELLOW
-
-LAYOUT_BORDER_COLOR_FOCUSED   = COLOR_BLUE
-LAYOUT_BORDER_COLOR           = COLOR_BACKGROUND
 
 # == BAR == #
 BAR_SIZE = 22
@@ -264,6 +290,7 @@ ICON_SIZE_WIDGET_SYSTRAY = 15
 # ======== MARGIN SIZE ======== #
 MARGIN_SIZE_LAYOUT          = 12
 MARGIN_PYTHON_LOGO          = 0
+MARGIN_SCREEN_0             = [-2, 0, 0, 0]
 
 MARGIN_X_GROUP_BOX          = 0
 MARGIN_X_WIDGET_IMAGE       = 3
@@ -414,14 +441,23 @@ mouse = [ Drag(  [KEY_MOD], LEFT_CLICK,   lazy.window.set_position_floating(), s
 
 # ////////////////////////////////////////////////////////////////// GROUP SETTINGS ////////////////////////////////////////////////////////////////// #
 
-groups = [ Group(group, GROUP_DEFAULTS) for group in GROUP_NAMES]
+groups = []
 
-# Bind to groups
-for i, _ in enumerate(groups):
-    group_name = str( (i + 1) % 10 ) # Mod 10 to make 10 bind to 0
+for i, group_name in enumerate(GROUP_NAMES):
+    group_number = str( (i + 1) % 10 ) 
 
-    keys.extend([ Key( [KEY_MOD],            group_name, lazy.group[GROUP_NAMES[i]].toscreen()                  )                          # Switch to group
-                , Key( [KEY_MOD, KEY_SHIFT], group_name, lazy.window.togroup(GROUP_NAMES[i], switch_group = SWITCH_WINDOW_WHEN_MOVED) ) ]) # Move focused window to group
+    groups.append( Group(group_name, layout = GROUP_LAYOUTS[group_name]) )
+
+    keys.extend( [ Key( [KEY_MOD],            group_number, lazy.group[group_name].toscreen(toggle = False) ) 
+                 , Key( [KEY_MOD, KEY_SHIFT], group_number, lazy.window.togroup(group_name, switch_group = SWITCH_WINDOW_WHEN_MOVED) ) ] )
+
+@hook.subscribe.client_new
+def func(client):
+    for group_name in GROUP_MATCHES:
+        for match in GROUP_MATCHES[group_name]:
+            if client.name == match:
+                client.togroup(group_name)
+                qtile.groups_map[group_name].cmd_toscreen(toggle = False)
 
 # ////////////////////////////////////////////////////////////////////// LAYOUT ////////////////////////////////////////////////////////////////////// #
 
@@ -748,8 +784,6 @@ all_bar_widgets = [ BarWidget( widget_object = python_logo_widget
 
                   , BarWidget( widget_object = weather_temp_widget
                              , callback      = CALLBACK_WIDGET_WEATHER
-                             #, icon_name     = ICON_NAME_WEATHER
-                             #, use_arrow     = True
                              , background    = WIDGET_BACKGROUND_WEATHER
                              , foreground    = WIDGET_FOREGROUND_WEATHER ) 
 
@@ -821,8 +855,6 @@ all_bar_widgets = [ BarWidget( widget_object = python_logo_widget
 
                   , BarWidget( widget_object = clock_widget
                              , callback      = CALLBACK_WIDGET_CLOCK
-                             #, icon_name     = ICON_NAME_CLOCK
-                             #, use_arrow     = True
                              , background    = WIDGET_BACKGROUND_CLOCK
                              , foreground    = WIDGET_FOREGROUND_CLOCK )
 
@@ -904,15 +936,15 @@ screen_0_bar = getBar(all_bar_widgets)
 screen_1_bar = getBar(minimal_bar_widgets)
 
 screen_0     = Screen( top = bar.Bar( screen_0_bar
-                                       , BAR_SIZE
-                                       , opacity    = 1
-                                       , margin     = [-2, 0, 0, 0]
-                                       , background = COLOR_BACKGROUND ) )
+                                    , BAR_SIZE
+                                    , opacity    = 1
+                                    , margin     = MARGIN_SCREEN_0
+                                    , background = COLOR_BACKGROUND ) )
 
-screen_1     = Screen( top    = bar.Bar( screen_1_bar
-                                       , BAR_SIZE
-                                       , opacity    = 1
-                                       , background = COLOR_BACKGROUND ) )
+screen_1     = Screen( top = bar.Bar( screen_1_bar
+                                    , BAR_SIZE
+                                    , opacity    = 1
+                                    , background = COLOR_BACKGROUND ) )
 
 screens      = [ screen_0
                , screen_1 ]
@@ -921,12 +953,21 @@ screens      = [ screen_0
 
 @hook.subscribe.startup_once
 def autostart():
+    # Make windows appear on proper monitors
+    qtile.cmd_to_screen(2)
+    qtile.groups_map[ GROUP_NAMES[9] ].cmd_toscreen(toggle = False)
+
+    qtile.cmd_to_screen(1)
+    qtile.groups_map[ GROUP_NAMES[8] ].cmd_toscreen(toggle = False)
+
+    qtile.cmd_to_screen(0)
+
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
 
 # ////////////////////////////////////////////////////////////////// OTHER SETTINGS ////////////////////////////////////////////////////////////////// #
 
-dgroups_key_binder         = None
+#dgroups_key_binder         = None
 dgroups_app_rules          = [] # #type: List
 main                       = None # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus         = True
