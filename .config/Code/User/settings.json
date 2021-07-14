@@ -1,0 +1,61 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "git.enableSmartCommit": true,
+    "editor.fontWeight": "500",
+    "editor.fontFamily": "'JetBrains Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "workbench.welcomePage.hiddenCategories": [
+        "Beginner"
+    ],
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "editor.wordWrapColumn": 78,
+    "editor.fontLigatures": true,
+    "LWI.breakpoints": [
+
+        {
+            "color": "rgb(0, 255, 0, 0.6)",
+            "column": 76
+        },
+        {
+            "color": "rgb(255, 255, 0, 0.6)",
+            "column": 77
+        } 
+    ],
+    "python.defaultInterpreterPath": "/usr/bin/python",
+    "editor.wordWrap": "on",
+    "editor.fontSize": 16,
+    "editor.cursorStyle": "block",
+    "editor.codeLensFontFamily": "JetBrains Mono",
+    "workbench.preferredDarkColorTheme": "One Dark Pro",
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#abb2bf",
+        "terminalCursor.foreground": "#abb2bf"
+    },
+    "window.menuBarVisibility": "toggle",
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
+    "window.titleSeparator": " in ",
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": true,
+    "vim.cursorStylePerMode.insert": "block",
+    "vim.cursorStylePerMode.normal": "block-outline",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["j"],
+            "after": ["k"]
+        },
+        {
+            "before": ["k"],
+            "after": ["j"]
+        }
+    ],
+    "vim.handleKeys": {
+        "<C-c>": false,
+        "<C-v>": false,
+        "<C-x>":false,
+        "<C-d>":false,
+    }
+}
